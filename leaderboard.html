@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Leaderboard of top performers.">
+    <title>Leaderboard | Skill Master</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* Additional CSS for the Leaderboard */
+        .leaderboard-section {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: #f0f4f7;
+        }
+
+        .leaderboard-section h2 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .leaderboard-section p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .leaderboard-table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .leaderboard-table th {
+            background-color: #0e4c80;
+            color: white;
+            font-weight: 600;
+        }
+
+        .leaderboard-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .leaderboard-table td i {
+            color: #ffbf00;
+        }
+
+        /* Highlighting the current user */
+        .highlight-user {
+            background-color: yellow;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .leaderboard-table {
+                width: 100%;
+            }
+
+            .leaderboard-table th, .leaderboard-table td {
+                font-size: 1rem;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>Skill Master</h1>
+        </div>
+        <button class="hamburger" id="hamburger-menu">&#9776;</button> <!-- Hamburger Button -->
+
+        <nav class="navbar" id="nav-menu">
+            <ul>
+                <li><a href="employeesDashboard.html">Home</a></li>
+                <li><a href="joinQuiz.html">Join Quizzes</a></li>
+                <li><a href="leaderboard.html" class="active">Leaderboard</a></li>
+                <li><a href="#">Jobs</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="home.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <section class="leaderboard-section">
+            <h2>Leaderboard</h2>
+            <p>See how you rank among other participants!</p>
+            
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Badges</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>John Doe</td><td>95%</td><td><i class="fas fa-medal"></i> Top Scorer</td></tr>
+                    <tr><td>2</td><td>Jane Smith</td><td>90%</td><td><i class="fas fa-trophy"></i> Consistent Player</td></tr>
+                    <tr><td>3</td><td>Emily Brown</td><td>88%</td><td><i class="fas fa-star"></i> Rising Star</td></tr>
+                    <tr><td>4</td><td>Akash Pandey</td><td>85%</td><td><i class="fas fa-certificate"></i> Great Player</td></tr> <!-- Highlight this row -->
+                    <tr><td>5</td><td>Amanda White</td><td>82%</td><td><i class="fas fa-thumbs-up"></i> Well Done</td></tr>
+                    <tr><td>6</td><td>Chris Black</td><td>80%</td><td><i class="fas fa-star"></i> Good Performer</td></tr>
+                    <tr><td>7</td><td>Sarah Blue</td><td>78%</td><td><i class="fas fa-thumbs-up"></i> Competitor</td></tr>
+                    <tr><td>8</td><td>Robert King</td><td>75%</td><td><i class="fas fa-certificate"></i> Fast Learner</td></tr>
+                    <tr><td>9</td><td>Laura Knight</td><td>73%</td><td><i class="fas fa-star"></i> Strong Player</td></tr>
+                    <tr><td>10</td><td>James Turner</td><td>70%</td><td><i class="fas fa-trophy"></i> Dedicated Player</td></tr>
+                    <tr><td>11</td><td>Lisa Walker</td><td>68%</td><td><i class="fas fa-medal"></i> Potential Player</td></tr>
+                    <tr><td>12</td><td>David Lewis</td><td>66%</td><td><i class="fas fa-star"></i> Regular Player</td></tr>
+                    <tr><td>13</td><td>Paul Hill</td><td>65%</td><td><i class="fas fa-certificate"></i> Persistent</td></tr>
+                    <tr><td>14</td><td>Olivia Scott</td><td>63%</td><td><i class="fas fa-star"></i> Challenger</td></tr>
+                    <tr><td>15</td><td>Rachel Adams</td><td>62%</td><td><i class="fas fa-thumbs-up"></i> Hard Worker</td></tr>
+                    <tr><td>16</td><td>William Clark</td><td>60%</td><td><i class="fas fa-medal"></i> Up-and-Comer</td></tr>
+                    <tr><td>17</td><td>Sophia Reed</td><td>58%</td><td><i class="fas fa-star"></i> Star Player</td></tr>
+                    <tr><td>18</td><td>Thomas Lopez</td><td>55%</td><td><i class="fas fa-trophy"></i> Committed</td></tr>
+                    <tr><td>19</td><td>Alice Carter</td><td>53%</td><td><i class="fas fa-certificate"></i> Determined</td></tr>
+                    <tr><td>20</td><td>Daniel Brooks</td><td>50%</td><td><i class="fas fa-star"></i> Future Star</td></tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>HEAD OFFICE</h4>
+                 <ul>
+                    <li>740 Bathurst Street,</li>
+                    <li>Toronto, ON, M5S 2R6,</li>
+                    <li>Canada</li>
+                 </ul>
+            </div>
+            <div class="footer-section">
+                <h4>CONTACT US</h4>
+                 <ul>
+                    <li>647-799-4830</li>
+                    <li>info@niagaracollegetoronto.ca</li>
+                 </ul>
+            </div>
+            <div class="footer-section">
+                <h4>LEGAL</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Skill Master. Project by niagaracollegetoronto students G2. Toronto, Canada.</p>
+            
+            <ul class="social-links">
+                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- External JavaScript -->
+
+    <script>
+        // Highlight the current user
+        const currentUser = "Akash Pandey";
+        const rows = document.querySelectorAll('.leaderboard-table tbody tr');
+        
+        rows.forEach(row => {
+            const name = row.children[1].textContent;
+            if (name === currentUser) {
+                row.classList.add('highlight-user');
+            }
+        });
+
+        // Toggle the hamburger menu for the header
+        const hamburger = document.getElementById('hamburger-menu');
+        const navMenu = document.getElementById('nav-menu');
+    
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

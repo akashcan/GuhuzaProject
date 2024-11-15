@@ -1,0 +1,802 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@100..900&display=swap');
+
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Exo","Roboto", "Helvetica", "Arial", sans-serif;
+
+}
+
+body {
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    background-color: #111010;
+    padding: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+header .logo h1 {
+    color: white;
+    font-family: 'Exo', sans-serif;
+    font-weight: 600;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    font-size: 18px;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #0f4c81;
+    color: #fff;
+    border-radius: 10px;
+}
+
+nav ul li a.cta {
+    background-color:#0f4c81 ;
+    border-radius: 5px;
+    color: white;
+}
+
+nav ul li a.cta:hover {
+    background-color: #fff;
+    color:#333;
+    border:1px solid #333;
+}
+
+/* Sidebar (for mobile view only) */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+}
+
+@media (max-width: 900px) {
+    .hamburger {
+        display: block;
+    }
+
+    #nav-menu {
+        display: none;
+    }
+
+    #nav-menu.active {
+        display: block;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background-color: #111010;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #nav-menu ul {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    #nav-menu ul li {
+        margin: 10px 0;
+    }
+}
+
+/* Hero Section ( */
+.hero {
+    text-align: center;
+    padding: 4rem 1rem;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: url('images/bg3.jpg') no-repeat center center/cover;
+    animation: fadeIn 0.5s ease;
+}
+
+.hero-content h2 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    color: white;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    color: #0e4c80;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.cta-button {
+    background-color: #0e4c80;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    margin: 0 10px;
+    margin-top: 80px;
+    margin-bottom: 10rem;
+    font-size: 1.7rem;
+    display: inline-block;
+
+}
+
+.cta-button:hover {
+    background-color: #fff;
+    transform: scale(1.1);
+    color:#333;
+    border:1px solid #333;
+
+}
+
+/* How It Works Section */
+.how-it-works {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.how-it-works h3 {
+    font-size: 2rem;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+.step {
+    width: 22%;
+    text-align: center;
+}
+
+.step img {
+    width: 80px;
+}
+
+.step h4 {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}
+
+/* Benefits Section */
+.benefits {
+    background-color: #0e4c80;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.benefits h3 {
+    color: #fff;
+    font-size: 2rem;
+}
+
+.benefit-cards {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+.card {
+    width: 22%;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card h4 {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Media Queries for Benefits Section */
+@media (max-width: 1200px) {
+    .benefit-cards {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    
+    .card {
+        width: 45%; /* Adjusted for medium screens */
+    }
+}
+
+@media (max-width: 900px) {
+    .benefit-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 60%; /* Adjusted for smaller screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .card {
+        width: 80%; /* Full-width for mobile devices */
+    }
+}
+
+/* Footer */
+.footer-container {
+    display: flex;
+    justify-content: space-between; /* Keeps space between footer sections */
+    align-items: center; /* Vertically center the items */
+    width: 100%; /* Ensures it spans the available width */
+    margin: 0 auto; /* Centers the footer on the page */
+    padding: 2rem 1rem;
+    background-color: #111010;
+}
+
+.footer-section h4 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.footer-section {
+    flex: 1 1 33%; /* Make each section take up an equal width, up to 30% */
+    margin-bottom: 20px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #fff;
+}
+
+.footer-bottom {
+    background-color: #111010;
+    text-align: center;
+    padding: 1rem 0;
+    color: #fff;
+    font-size: 18px;
+    width: 100%; /* Ensures it spans the full width */
+    margin: 0 auto; /* Centers the footer bottom */
+}
+
+
+
+.footer-bottom .heart {
+    color: red;
+}
+
+.footer-bottom .social-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.footer-bottom .social-links li {
+    margin: 0 10px;
+}
+
+.footer-bottom .social-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.footer-bottom .social-links li a:hover {
+    color: #0f4c81;
+}
+
+.footer-section ul {
+    list-style: none;
+    font-size: 18px;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    color: #444242;
+    text-decoration: underline;
+}
+.social-links img{
+    height: 1.5rem;
+    width:5rem
+}
+/* Responsive Design for Footer */
+@media (max-width: 900px) {
+    .footer-container {
+        flex-direction: column; /* Stack sections vertically */
+        text-align: center; /* Center text */
+        
+    }
+
+    .footer-section {
+        flex: 1 1 100%; /* Full width for each section */
+        margin-bottom: 15px; /* Space between sections */
+
+    }
+
+    .footer-bottom {
+        padding: 1.5rem 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-container {
+        padding: 1rem; /* Reduce padding */
+    }
+
+    .footer-section h4 {
+        font-size: 1rem; /* Smaller font size for mobile */
+    }
+
+    .footer-bottom .social-links li a {
+        font-size: 1rem; /* Smaller social icon size */
+    }
+
+    .footer-bottom {
+        font-size: 14px; /* Adjust font size */
+    }
+}
+/* Icons */
+i{
+    font-size: 24px;;
+}
+
+
+/* Sign-In Page Styles */
+.sign-in-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    background-color: #f4f7fa;
+}
+
+.sign-in-form {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    animation: slideIn 1s ease-in-out;
+}
+
+.sign-in-form h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-family: 'Exo', sans-serif;
+    font-weight: 400;
+}
+
+/* Spacing between inputs */
+.sign-in-form input[type="text"],
+.sign-in-form input[type="password"] {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem; /* Increased spacing */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Spacing between 'Remember Me' checkbox and 'Sign In' button */
+.sign-in-form input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.sign-in-form div {
+    margin-bottom: 1.5rem; /* Space below the checkbox */
+}
+
+/* Spacing for Sign In button */
+.sign-in-form button {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem; /* Increased space before links */
+    background-color: #0e4c80;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.sign-in-form button:hover {
+    background-color: #fff;
+    transform: scale(1.05);
+    color:#333;
+    border:2px solid #333;
+}
+
+/* Spacing for Forgot username/password link */
+.sign-in-form .links {
+    text-align: center;
+    margin-bottom: 1.5rem; /* Increased spacing */
+    font-size: 0.9rem;
+}
+
+.sign-in-form .links a {
+    color: #0e4c80;
+    text-decoration: none;
+}
+
+.sign-in-form .links a:hover {
+    text-decoration: underline;
+}
+
+/* Spacing for the sign-up link at the bottom */
+.sign-in-form .links p:last-child {
+    margin-top: 1.5rem; /* Space between last link and Sign up */
+}
+
+/* Animation for sliding in the form */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Register Page Styles */
+.register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    background-color: #f4f7fa;
+    width: 450px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 20px; /* Smooth border-radius */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+    border: 1px solid #e0e0e0;
+    position: relative;
+}
+
+.register-tabs {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+/* Adding the border-radius to make the top tabs rounded */
+.tab-button {
+    padding: 1rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #0e4c80;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s ease, transform 0.3s ease;
+    border-radius: 15px 15px 0 0; /* Add rounded corners to the top tabs */
+    position: relative;
+    z-index: 1;
+}
+
+/* Tab movement animations */
+.tab-button.active {
+    border-bottom: 2px solid #0e4c80;
+    transform: translateY(-10px); /* Moves the active tab up */
+    background-color: #ffffff; /* Change background color to match form */
+    border: 1px solid #e0e0e0;
+    border-bottom: none; /* No border at the bottom when raised */
+}
+
+.tab-button.inactive {
+    transform: translateY(0); /* Resets the inactive tab */
+    background-color: #f4f7fa; /* Matches background of container */
+}
+
+/* Adjusting form style */
+.register-form {
+    text-align: center;
+}
+
+.register-form input[type="email"] {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+.register-button {
+    background-color: #0e4c80;
+    color: white;
+    padding: 0.8rem;
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.register-button:hover {
+    background-color: #ffff ;
+    transform: scale(1.05);
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+          
+/*  Job Seekers Registration Form Page  Styling */
+.registration-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.registration-container h2 {
+    text-align: center;
+    color: #0f4c81;
+    margin-bottom: 20px;
+    font-family: 'Exo', sans-serif;
+}
+
+.registration-container label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.registration-container input[type="text"],
+.registration-container input[type="email"],
+.registration-container input[type="password"],
+.registration-container input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.registration-container input[type="text"]::placeholder,
+.registration-container input[type="email"]::placeholder,
+.registration-container input[type="password"]::placeholder {
+    color: #999;
+}
+
+.registration-container input[type="file"] {
+    padding: 8px;
+}
+
+.registration-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0f4c81;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.registration-container button:hover {
+    background-color: #fff;
+    color:#333;
+    border:2px solid #333;
+}
+
+/* Responsive Form */
+@media (max-width: 600px) {
+    .registration-container {
+        padding: 15px;
+    }
+
+    .registration-container button {
+        font-size: 16px;
+    }
+}
+/* Form Container */
+.form-container {
+    width: 400px;
+    margin: 50px auto;
+    background-color: f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #0f4c81;
+    margin-bottom: 20px;
+    font-family: 'Exo', sans-serif;
+}
+
+.form-container label {
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 500;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container input[type="file"],
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0e4c80;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.form-container button:hover {
+    background-color: #fff;
+    color:#333;
+    border:2px solid #333;
+}
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* Generated quiz pages */
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.quiz-container {
+    margin-top: 30px;
+}
+.quiz-container {
+    height: 400px; /* Adjust the height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 10px; /* Ensure some space between the content and scrollbar */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+}
+
+
+.quiz-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+}
+
+.quiz-item h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.quiz-item ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.quiz-item li {
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.correct-answer {
+    background-color: #e0ffe0;
+    border-color: #8bc34a;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.button-container button {
+    background-color: #0f4c81;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    flex: 1;
+    margin: 5px;
+}
+
+.button-container button:hover {
+    background-color: #093354;
+}

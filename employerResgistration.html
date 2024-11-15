@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Guhuza</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css' rel='stylesheet' />
+
+    <style>
+    </style>
+</head>
+<body>
+   <!-- Header Section-->
+   <header>
+    <div class="logo">
+        <h1>Skill Master</h1>
+    </div>
+    <button class="hamburger" id="hamburger-menu">&#9776;</button> <!-- Hamburger Button for small screens -->
+    <nav class="navbar" id="nav-menu">
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="#">Quizzes</a></li>
+            <li><a href="#">Leaderboard</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="signIn.html" class="cta">Sign In</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Employer Registration Form -->
+<div class="form-container">
+    <h2>Employer Registration</h2>
+    <form id="employerForm"  enctype="multipart/form-data">
+        <!-- Company Name -->
+        <label for="companyName">Company Name:</label>
+        <input type="text" id="companyName" name="companyName" placeholder="Enter company name" required>
+
+        <!-- Email -->
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter email" required>
+
+        <!-- Password -->
+        <label for="password">Password</label>
+             <div class="password-wrapper">
+                 <input type="password" id="password" name="password" placeholder="Enter password" required>
+                 <span class="toggle-password" onclick="togglePasswordVisibility('password')">
+                👁️
+                </span>
+                </div>
+
+               <label for="confirm-password">Confirm Password</label>
+               <div class="password-wrapper">
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility('confirm-password')">
+            👁️
+              </span>
+              </div>
+        <!-- Company Logo -->
+        <label for="companyLogo">Company Logo:</label>
+        <input type="file" id="companyLogo" name="companyLogo" accept="image/*" required>
+
+        <!-- Industry Dropdown -->
+        <label for="industry">Industry:</label>
+        <select id="industry" name="industry" required>
+            <option value="" disabled selected>Select Industry</option>
+            <option value="IT">IT</option>
+            <option value="Sales & Marketing">Sales & Marketing</option>
+            <option value="Hospitality">Hospitality</option>
+            <option value="Medical & Health">Medical & Health</option>
+        </select>
+
+        <!-- Company Location (OpenStreetMap Nominatim) -->
+<label for="location">Company Location:</label>
+<input type="text" id="location-input" name="location" placeholder="Enter company address" required>
+<div id="suggestions"></div>
+
+        <!-- Submit Button -->
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+   <!-- Footer -->
+   <footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h4>HEAD OFFICE</h4>
+             <ul>
+                <li>740 Bathurst Street,</li>
+                <li>Toronto, ON, M5S 2R6,</li>
+                <li>Canada</li>
+             </ul>
+        </div>
+        <div class="footer-section">
+            <h4>CONTACT US</h4>
+             <ul>
+                <li>647-799-4830</li>
+                <li>info@niagaracollegetoronto.ca</li>
+             </ul>
+        </div>
+        <div class="footer-section">
+            <h4>LEGAL</h4>
+            <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Cookie Policy</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2024 Skill Master. Project by niagaracollegetoronto students G2. Toronto, Canada.</p>
+        
+        <ul class="social-links">
+            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+    </div>
+</footer>
+
+    
+<!-- External Scripts -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js'></script>
+<script src="assets/js/loginpage.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>

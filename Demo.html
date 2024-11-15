@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guhuza| QuizLayout</title>
+    <link rel="stylesheet" href="assets/css/quiz.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="mainQuizpage">
+
+    <!-- Countdown Overlay -->
+    <div id="countdown-overlay" class="countdown-overlay">
+        <div id="countdown" class="countdown">Ready</div>
+    </div>
+
+    <!-- Main Content with Navbar -->
+    <div class="main-content">
+        <header class="navbar">
+            <button class="open-sidebar-btn" id="open-sidebar-btn">&#9776;</button>
+            <div class="navbar-right">
+                <audio id="background-music" src="sounds/background.mp3" autoplay loop></audio>
+                <button id="music-toggle">🔊</button>
+                <span id="user-name"></span>
+                <img src="/images/Frogita - Telegram Animated Stickers (6).gif" height="40px" width="40px" alt="User Image" class="user-img">
+            </div>
+        </header>
+
+        <!-- Quiz Section -->
+        <section class="quiz-container" id="quiz-container">
+            <div class="quiz-header">
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>    
+                <div class="timer" id="timer">60s</div>
+            </div>
+            <div class="quiz-content">
+                <h3 class="quiz-title" id="quiz-title">Quiz</h3>
+                <p class="quiz-level" id="quiz-level">New Level!</p>
+                <div class="question" id="question">Loading question...</div>
+                <div class="choices" id="choices">Loading choices...</div>
+            </div>
+            <div class="footer">
+                <button class="continue-btn" id="continue-btn">Continue</button>
+            </div>
+        </section>
+
+       <!-- Leaderboard Overlay -->
+       <div id="leaderboard-overlay" class="leaderboard-overlay">
+           <div class="leaderboard-content">
+               <h2>Leaderboard</h2>
+
+               <!-- Player Photo and Name -->
+               <div class="player-info">
+                   <img src="images/Frogita - Telegram Animated Stickers.gif" alt="Player Photo" class="player-photo">
+                   <h3><span id="player-name"></span></h3>
+
+                </div>
+
+               <!-- Stats Section -->
+               <div class="leaderboard-stats">
+                   <p>Total Questions: <span id="total-questions"></span></p>
+                   <p>Score: <span id="score-value"></span></p>
+                   <p>Time Taken: <span id="time-taken-value"></span></p>
+               </div>
+
+               <!-- Action Buttons -->
+               <button id="next-level-btn" class="leaderboard-btn">Next Level</button>
+               <button id="replay-btn" class="leaderboard-btn">Replay</button>
+           </div>
+       </div>
+
+    </div>
+    <!-- Background Grid layout -->
+    <div class="grid-overlay"></div> 
+
+<!-- External Scripts -->
+    <script src="assets/js/loginpage.js"></script>
+    <script src="assets/js/quizzes.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

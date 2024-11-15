@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Guhuza</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>Skill Master</h1>
+        </div>
+        <button class="hamburger" id="hamburger-menu">&#9776;</button> <!-- Hamburger Button for small screens -->
+        <nav class="navbar" id="nav-menu">
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#">Quizzes</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="signIn.html" class="cta">Sign In</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Sign-In Form -->
+    <div class="sign-in-container">
+        <div class="sign-in-form">
+            <h2>Sign In</h2>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                
+                <div>
+                    <input type="checkbox" id="remember-me">
+                    <label for="remember-me">Remember Me</label>
+                </div>
+                <button type="submit">Sign In</button>
+            </form>
+
+            <form id="otp-form" style="display: none;" onsubmit="return verifyOTP(event)">
+                <label for="otp">Enter OTP</label>
+                <input type="text" id="otp" name="otp" required>
+            
+                <button type="submit">Verify OTP</button>
+            </form>
+            
+            <div class="links">
+                <p><a href="forgetPassword.html">Forgot password?</a></p>
+                <p>New to Skill Master? <a href="jobseekerRegistration.html">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>HEAD OFFICE</h4>
+                 <ul>
+                    <li>740 Bathurst Street,</li>
+                    <li>Toronto, ON, M5S 2R6,</li>
+                    <li>Canada</li>
+                 </ul>
+            </div>
+            <div class="footer-section">
+                <h4>CONTACT US</h4>
+                 <ul>
+                    <li>647-799-4830</li>
+                    <li>info@niagaracollegetoronto.ca</li>
+                 </ul>
+            </div>
+            <div class="footer-section">
+                <h4>LEGAL</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Skill Master. Project by niagaracollegetoronto students G2. Toronto, Canada.</p>
+            <ul class="social-links">
+                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div>
+    </footer>
+    <!-- External Scripts -->
+    <script src="assets/js/loginpage.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

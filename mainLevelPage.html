@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Levels|Guhuza</title>
+    <link rel="stylesheet" href="assets/css/quiz.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+</head>
+<style></style>
+</head>
+<body class="mainQuizpage">
+
+            <!-- Sidebar -->
+        <aside class="sidebar " id="sidebar" >
+            <div class="sidebar-header">
+                <h2>Skill Master</h2>
+                <button class="close-sidebar-btn" id="close-sidebar-btn">&times;</button>
+            </div>
+            <nav class="sidebar-menu">
+                <ul>
+                    <li><a href="mainQuizPage.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="profiles.html"><i class="fas fa-user"></i> Profile</a></li>
+                    <li><a href="#leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+                    <li><a href="invite-friend"><i class="fas fa-user-plus"></i> Invite Friends</a></li>
+                </ul>
+            </nav>
+        </aside>
+            
+         <!-- Main Content with Navbar -->
+ <div class="main-content ">
+        <!-- Navbar -->
+        <header class="navbar">
+            <button class="open-sidebar-btn" id="open-sidebar-btn">&#9776;</button>
+            <div class="navbar-right">
+                <audio id="background-music" src="sounds/background.mp3" autoplay loop></audio>
+                <button id="music-toggle">🔊</button> 
+                <span id="user-name"></span>
+                <img src="/images/Frogita - Telegram Animated Stickers (6).gif" height="40px" width="40px" alt="User Image" class="user-img">
+            </div>
+        </header>
+        <section class="vertical-levels-container">
+            <div id="levels-container">
+                <!-- Levels will be generated dynamically here -->
+            </div>
+            <div class="character" id="character"></div>
+        </section>
+         
+    <!-- Popup Modal -->
+ <div class="popup-modal" id="popup-modal">
+    <div class="popup-content" id="popup-content">
+        <h3 id="popup-title">Quiz Title</h3>
+        <p id="popup-description">Short description about the quiz.</p>
+        <button class="start-quiz-btn" id="start-quiz-btn">Start Quiz</button>
+        <button class="challenge-btn" id="challenge-friends-btn">Challenge Friends</button>    </div>
+ </div> 
+    <!-- Sound Effects -->
+        <audio id="click-sound" src="Audio/90s-game-ui-7-185100.mp3"></audio>
+        <audio id="move-sound" src="Audio/mixkit-player-jumping-in-a-video-game-2043.wav"></audio>
+        <audio id="locked-sound" src="Audio/mixkit-fairytale-game-over-1945.wav"></audio>
+    </div>
+ <div class="grid-overlay"></div>    
+
+<footer>
+    <div class="footer-bottom">            
+        <ul class="social-links">
+            <li><p>© 2024 Skill Master.</p></li>
+            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <ul class="store-links">
+                <li><img src="https://cf.quizizz.com/img/landing/google%20play.png" alt="playstore" class="store-img"></li>
+                <li><img src="https://cf.quizizz.com/img/landing/apple%20app%20store.png" alt="appstore" class="store-img"></li>
+            </ul>
+            
+        </ul>
+    </div>
+</footer>
+<!-- Scripts -->
+ <script>
+   document.addEventListener("DOMContentLoaded", () => {
+    const levelsContainer = document.getElementById("levels-container");
+
+    // Add event listener to all dynamically created level buttons
+    levelsContainer?.addEventListener("click", (event) => {
+        const button = event.target;
+        if (button.classList.contains("level-circle")) {
+            const level = button.getAttribute("data-level"); // Get the level from the button
+            console.log(`Level ${level} button clicked.`);
+
+            // Show the popup for Start Quiz
+            const popupModal = document.getElementById("popup-modal");
+            const startQuizButton = document.getElementById("start-quiz-btn");
+
+            if (popupModal && startQuizButton) {
+                popupModal.style.display = "block"; // Show the modal
+
+                // Assign the fetchQuizData function to the Start Quiz button
+                startQuizButton.onclick = () => {
+                    fetchQuizData(level); // Fetch quiz for the selected level
+                };
+            } else {
+                console.error("Popup modal or Start Quiz button not found.");
+            }
+        }
+    });
+    // Function to fetch quiz data
+    function fetchQuizData(level) {
+        const apiUrl = `http://localhost:3005/api/quiz?level=${level}`; // Dynamic level API URL
+        console.log(`Fetching quiz for level ${level} from ${apiUrl}`);
+
+        fetch(apiUrl)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log("Fetched quiz data:", data);
+
+                if (!data || !data.test || !data.test.question || data.test.question.length === 0) {
+                    alert("No quiz questions available from the API.");
+                    return;
+                }
+
+                // Store the quiz data in sessionStorage
+                sessionStorage.setItem("quizData", JSON.stringify(data.test));
+                console.log("Quiz data stored in sessionStorage:", JSON.stringify(data.test));
+
+                // Navigate to the quiz page
+                console.log("Navigating to mainQuizPage.html...");
+                window.location.href = "mainQuizPage.html";
+            })
+            .catch((error) => {
+                console.error("Error fetching quiz data:", error);
+                alert("Failed to fetch quiz data. Please try again.");
+            });
+    }
+});</script>
+<!-- External Scripts -->
+    <script src="assets/js/loginpage.js"></script>
+    <script src="assets/js/quizzes.js"></script>
+    <script src="assets/js/script.js"></script>
+ </body>
+</html>
