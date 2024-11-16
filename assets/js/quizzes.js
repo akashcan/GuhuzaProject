@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 }
 
-                animateZigzag();
+             animateZigzag();
             } else {
                 currentLevel = level;
               // Ensure click sound plays with error handling
