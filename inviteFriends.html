@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard | Guhuza</title>
+    <title>Invite Friends | Guhuza</title>
     <link rel="stylesheet" href="assets/css/quiz.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" href="/images/Guzuha-02.svg" type="image/svg+xml" />
-     
+
 </head>
 <style>
 </style>
@@ -21,10 +21,11 @@
             </div>
             <nav class="sidebar-menu">
                 <ul>
-                    <li><a href="mainLevelPage.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="mainQuizPage.html"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="profiles.html"><i class="fas fa-user"></i> Profile</a></li>
                     <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a></li>
                     <li><a href="inviteFriends.html"><i class="fas fa-user-plus"></i> Invite Friends</a></li>
+                    <li><a href="DashBoardAI.html"><i class="fas fa-arrow-left"></i> Go Back</a></li>
                 </ul>
             </nav>
         </aside>
@@ -40,77 +41,58 @@
                 <img src="/images/Frogita - Telegram Animated Stickers (6).gif" height="40px" width="40px" alt="User Image" class="user-img">
             </div>
         </header>
-        <!-- Leaderboard  -->
-        <div class="leaderboard-container">
-            <div class="profile-header">
-                <h2>Leaderboard</h2>
-                <!-- Winners image below the heading -->
-                <div class="winners-image">
-                    <img src="/images/winners.png" alt="Winners" />
+        
+        <div class="invite-friends-container">
+            <!-- Invite Friends Section -->
+            <div id="invite-section" class="invite-section">
+                <!-- Header Section -->
+                <div class="invite-header">
+                    <h1>Invite Friends</h1>
+                    <img src="/images/referFriend.png" alt="Invite Friends Image" class="invite-image" />
                 </div>
+        
+                <!-- Description Section -->
+                <div class="invite-description">
+                    <p>Invite your friends to join Guhuza.</p>
+                </div>
+        
+                <!-- Send Invite Button -->
+                <button class="invite-button send-invite-btn" onclick="showInviteOptions()">Send Invite</button>
             </div>
         
-            <div class="player-list">
-                <!-- Player 1 with Gold Medal SVG -->
-                <div class="player-row first">
-                    <div class="rank-icon">
-                        <img src="/images/first-icon.svg" alt="Gold Medal" />
-                    </div>
-                    <div class="icon">E</div>
-                    <div class="name">Phoenix</div>
-                    <div class="xp">345 XP</div>
+            <!-- Send Invite Section -->
+            <div id="invite-options" class="invite-options hidden">
+                <!-- Header Section -->
+                <div class="invite-header">
+                    <h1>Send Invite</h1>
                 </div>
         
-                <!-- Player 2 with Silver Medal SVG -->
-                <div class="player-row">
-                    <div class="rank-icon">
-                        <img src="/images/second-icon.svg" alt="Silver Medal" />
-                    </div>
-                    <div class="icon">W</div>
-                    <div class="name">william</div>
-                    <div class="xp">283 XP</div>
+                <!-- Description Section -->
+                <div class="invite-description">
+                    <p>Share the link below with your friends on Social Media.</p>
                 </div>
         
-                <!-- Player 3 with Bronze Medal SVG -->
-                <div class="player-row highlighted">
-                    <div class="rank-icon">
-                        <img src="/images/third-icon.svg" alt="Bronze Medal" />
-                    </div>
-                    <div class="icon">X</div>
-                    <div class="name">Xavier</div>
-                    <div class="xp">615 XP</div>
+                <!-- Copy Link Section -->
+                <div class="copy-link-container">
+                    <input
+                        type="text"
+                        id="invite-link"
+                        class="invite-link"
+                        value="https://yourwebsite.com/invite?ref=12345"
+                        readonly
+ />
+                    <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
                 </div>
         
-                <!-- More rows (without icons) -->
-                <div class="player-row">
-                    <div class="rank">4</div>
-                    <div class="icon">A</div>
-                    <div class="name">Alice</div>
-                    <div class="xp">150 XP</div>
-                </div>
-                <div class="player-row">
-                    <div class="rank">5</div>
-                    <div class="icon">B</div>
-                    <div class="name">Bob</div>
-                    <div class="xp">120 XP</div>
-                </div>
-
-                <div class="player-row">
-                    <div class="rank">6</div>
-                    <div class="icon">B</div>
-                    <div class="name">Bob</div>
-                    <div class="xp">120 XP</div>
-                </div>
-
-                <div class="player-row">
-                    <div class="rank">7</div>
-                    <div class="icon">B</div>
-                    <div class="name">Bob</div>
-                    <div class="xp">120 XP</div>
-                </div>
-                
+                <!-- Share Your Link Button -->
+                <button class="invite-button share-link-btn" onclick="shareLink()">Share Your Link</button>
+        
+                <!-- Cancel Link -->
+                <a href="#" class="cancel-link" onclick="hideInviteOptions()">Cancel</a>
             </div>
         </div>
+        
+   
     <!-- Sound Effects -->
         <audio id="click-sound" src="Audio/90s-game-ui-7-185100.mp3"></audio>
         <audio id="move-sound" src="Audio/mixkit-player-jumping-in-a-video-game-2043.wav"></audio>
@@ -138,5 +120,34 @@
    <script src="assets/js/loginpage.js"></script>
    <script src="assets/js/quizzes.js"></script>
    <script src="assets/js/script.js"></script>
+   <script>
+    // Show the "Send Invite" section and hide the "Invite Friends" section
+function showInviteOptions() {
+    document.getElementById("invite-section").classList.add("hidden");
+    document.getElementById("invite-options").classList.remove("hidden");
+}
+
+// Hide the "Send Invite" section and show the "Invite Friends" section
+function hideInviteOptions() {
+    document.getElementById("invite-options").classList.add("hidden");
+    document.getElementById("invite-section").classList.remove("hidden");
+}
+
+// Copy the invite link to the clipboard
+function copyToClipboard() {
+    const inviteLink = document.getElementById("invite-link");
+    inviteLink.select();
+    inviteLink.setSelectionRange(0, 99999); // For mobile devices
+    navigator.clipboard.writeText(inviteLink.value);
+    alert("Link copied to clipboard!");
+}
+
+// Redirect to email when "Share Your Link" is clicked
+function shareLink() {
+    const inviteLink = document.getElementById("invite-link").value;
+    window.location.href = `mailto:?subject=Join Us&body=Here's your invite link: ${inviteLink}`;
+}
+
+    </script>
  </body>
 </html>

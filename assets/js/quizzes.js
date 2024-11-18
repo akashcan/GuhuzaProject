@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 //Progressbar
     function updateProgressBar() {
-        const progress = ((30 - timeRemaining) / 30) * 100;
+        const progress = ((60 - timeRemaining) / 60) * 100;
         progressBarElement.style.width = `${progress}%`;
     }
 

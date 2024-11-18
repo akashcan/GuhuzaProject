@@ -7,7 +7,6 @@
     font-family: "Exo", "Roboto", "Helvetica", "Arial", sans-serif;
 }
 /* Base Styling */
-
 body {
     margin: 0;
     width: 100vw;
@@ -17,8 +16,8 @@ body {
     color: #333;
     min-height: 100vh;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
-
 
 /* Header */
 header {
@@ -114,122 +113,12 @@ main {
     width: 100%;
     height: 100%;
     background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.030) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.030) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 255, 255, 0.030) 1.5px, transparent 2px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.030) 1.5px, transparent 2px);
     background-size: 70px 70px; /* Size of each grid cell */
     pointer-events: none; /* Allow clicks through to underlying content */
-z-index: -2;
+    z-index: -2;
 }
-
-
-/* Welcome Screen */
-.welcome-screen {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-}
-
-.welcome-screen h1 {
-    color: white;
-    font-size: 2rem;
-}
-
-.start-btn, .next-btn,.continue-btn,.challenge-btn, .start-btn{
-    background-color: #6dce34;
-    font-size: 2rem;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 1rem;
-    cursor: pointer;
-    font-weight: 600;
-    color: #000;
-    transition: all 0.3s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.368);
-    border-bottom: 5px solid #2e7703;
-}
-
-.start-btn :hover {
-
-    transform: scale(1.02) translateY(-2px);
-}
-
-/* Quiz Screen */
-.quiz-screen {
-    width: 800px;
-    margin: 80px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 3rem;
-    padding: 2rem;
-}
-
-.question {
-    color: white;
-    font-size: 2rem;
-    font-weight: 700;
-    text-align: center;
-}
-
-.ans-btn {
-    background-color: #20232e;
-    font-size: 1.5rem;
-    width: 100%;
-    margin-bottom: 1rem;
-    color: white;
-    border-radius: 1rem;
-    cursor: pointer;
-    border: 2px solid #384052;
-    border-bottom: 5px solid #384052;
-    text-align: left;
-    padding: 20px 30px;
-    font-weight: 500;
-    transition: all 0.5s;
-}
-
-.ans-btn:hover {
-    transform: scale(1.01) translateY(-2px);
-    border-bottom: 8px solid #384052;
-}
-
-.correct-ans {
-    background-color: #7ef190;
-    color: #000;
-    border-color: #50d57a;
-}
-
-.correct-ans:hover {
-    border-color: #50d57a;
-}
-
-.wrong-ans {
-    background-color: #e66f9e;
-    color: #000;
-    border-color: #de4670;
-}
-
-.wrong-ans:hover {
-    border-color: #de4670;
-}
-
-.next-btn {
-    display: none;
-}
-
-.ans-btn:disabled {
-    cursor: no-drop;
-}
-
-.score {
-    color: #ff9601;
-    font-weight: 600;
-}
-
 /* Footer */
 footer {
     background-color: #111010;
@@ -445,9 +334,9 @@ footer {
 /* Main Content Area */
 .main-content {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: flex-start; /* Align to top */
-    gap: 2rem; /* Add space between quiz and levels container */
+    justify-content: center; 
+    align-items:center; 
+    gap: 2rem; 
     padding-top: 2rem;
     min-height: 100vh;
     width: 100%;
@@ -488,8 +377,6 @@ footer {
     position: relative;
     z-index: 1;
 }
-
-
 /* Level Circle Hover Effects */
 .level-circle:hover {
     transform: scale(0.95);
@@ -515,31 +402,6 @@ footer {
     background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 60%);
     z-index: -1;
 }
-/* Style for the Start Button, similar to level-circle */
-.start-btn {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #6dce34;
-    color: #fff;
-    font-size: 1.3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.1s, background-color 0.3s;
-    box-shadow: 0 6px #2d6a0c, 0 5px 15px rgba(90, 86, 86, 0.445);
-    margin-bottom: 2rem;
-    position: relative;
-    z-index: 1;
-}
-
-.start-btn:hover {
-    background-color: #45a049;
-    transform: scale(1.05);
-}
-
 
 /* Character Styling */
 .character {
@@ -555,7 +417,7 @@ footer {
     transition: top 0.3s ease-in-out;
     z-index: 2;
 }
-/* Scrollbar Track */
+/* Scrollbar Track for levels  */
 .vertical-levels-container::-webkit-scrollbar {
     width: 5px; /* Width of the scrollbar */
 }
@@ -576,7 +438,6 @@ footer {
     background: #45a049; /* Darker color on hover */
 }
 
-
 /* Quiz Container Styling */
 .quiz-container {
     max-width: 400px;
@@ -590,7 +451,6 @@ footer {
     position: relative;
     z-index: 1;
 }
-
 /* Quiz Header with Progress and Timer */
 .quiz-header {
     display: flex;
@@ -614,14 +474,12 @@ footer {
     width: 0%; /* Adjust dynamically */
     transition: width 0.3s ease;
 }
-
 /* Timer Styling */
 .timer {
     font-weight: bold;
     color: #333;
     font-size: 1.1em;
 }
-
 /* Quiz Title and Level */
 .quiz-title {
     font-size: 1.8em;
@@ -710,8 +568,8 @@ footer {
 /* Music Button Styling */
 #music-toggle {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 50px;
+    right: 50px;
     background-color: #6dce34;
     border: none;
     border-radius: 50%;
@@ -722,7 +580,11 @@ footer {
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s;
+    max-width: calc(100% - 50px); /* Prevent overflow */
+    max-height: calc(100% - 50px); /* Prevent overflow */
+    overflow: hidden; /* Ensure nothing overflows */
 }
+
 
 #music-toggle:hover {
     transform: scale(1.1);
@@ -761,6 +623,7 @@ footer {
     width: 0%; /* Start with 0% */
     transition: width 0.3s ease, background-color 0.3s ease; /* Transition color smoothly */
 }
+
 
 
 .timer {
@@ -855,7 +718,6 @@ footer {
     background: #45a049;
 }
 
-
  /* General Popup Modal Styling */
 .popup-modal {
     display: none; /* Hidden by default */
@@ -916,7 +778,7 @@ background-color: #0e4c80;
 font-size: 1.5rem;
 border: none;
 padding: 10px 20px;
-border-radius: 1rem;
+border-radius: 10px;
 cursor: pointer;
 font-weight: 600;
 color: #fff;
@@ -936,14 +798,15 @@ transform: scale(1.02) translateY(-2px);
 
 
 .challenge-btn {
-    background-color: #FFA500;
-    color: #4CAF50;
+    background-color: #6dce34;
+    border-bottom: 5px solid #2e7703;
+    color: #fff;
     margin: 0 0 0 0;
-
 }
 
 .challenge-btn:hover {
-    background-color: #FFB833;
+    background: #45a049;
+
 }
 
 /* Countdown Overlay Styling */
@@ -967,7 +830,97 @@ transform: scale(1.02) translateY(-2px);
     font-weight: bold;
     text-align: center;
 }
-/* Leadgerboard */
+
+/* Profile Page */
+.profile-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #00112087;
+
+    border-radius: 10px;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.profile-header h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #39424e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #6dce34;
+    margin-bottom: 10px;
+}
+
+.change-avatar {
+    color: #6dce34;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.info-section {
+    margin-bottom: 15px;
+}
+
+.info-section label {
+    font-size: 0.9rem;
+    color: #b0b3b8;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.info-section input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #39424e;
+    border-radius: 5px;
+    background-color: #1c1e24;
+    color: #ffffff;
+    font-size: 1rem;
+}
+
+.info-section input:disabled {
+    color: #b0b3b8;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+    .profile-container {
+        width: 90%;
+    }
+}
+
+/* Leadgerboard in the QuizPage*/
 .leaderboard-overlay {
     display: none;
     position: fixed;
@@ -1052,4 +1005,277 @@ transform: scale(1.02) translateY(-2px);
 @keyframes fadeIn {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
+}
+
+/* Main Leadgerboard Page  */
+.leaderboard-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #00112087;
+    border-radius: 10px;
+    color: white; /* Text color updated to white */
+}
+
+/* Profile header styling */
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.profile-header h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+/* Winners image styling */
+.winners-image img {
+    max-width: 200px; 
+    height: auto; 
+    margin: 0 auto; 
+    display: block;
+    padding:0 0 10 0;
+    border-bottom: 3px solid ;
+}
+
+
+/* Player list styling */
+.player-list {
+    border-radius: 8px;
+    overflow-y: auto; /* Add vertical scrolling */
+    max-height: 700px; 
+    padding-right: 5px; 
+}
+
+/* leaderboard rows */
+.player-row {
+    display: grid;
+    grid-template-columns: 40px 40px auto 80px; /* Fixed columns for rank, avatar, name, and XP */
+    align-items: center; 
+    gap: 10px;
+    padding: 10px;
+    color: white;
+}
+
+
+.player-row:last-child {
+    border-bottom: none;
+}
+
+.name {
+    flex: 1; 
+    text-align: left; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; /* Add ellipsis for long names */
+}
+
+/* Rank icons for top 3 players */
+.rank-icon {
+    width: 20px; /* Ensure consistent size */
+    height: 40px;
+    margin-right: 10; /* Ensure consistent spacing from avatar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rank-icon img {
+    width: 100%; /* Ensure SVG fits within the container */
+    height: auto;
+}
+
+/* Regular rank for other players */
+.rank {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-right: 10px; /* Consistent spacing for all ranks */
+}
+
+/* Icon alignment for user avatars */
+.icon {
+    background: #4caf50;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Ensure consistent size */
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px; /* Same spacing as .rank-icon */
+    font-size: 1em;
+    text-align: center;
+}
+
+/* XP styling */
+.player-row .xp {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: white;
+}
+
+/* Scrollbar Track */
+.player-list::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+}
+
+.player-list::-webkit-scrollbar-track {
+    background: #00112087; /* Background of the scrollbar track */
+    border-radius: 6px;
+}
+
+/* Scrollbar Handle */
+.player-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(145deg, #60ab62, #6fd360); /* Add gradient color */
+    border-radius: 6px;
+}
+
+/* Handle on Hover */
+.player-list::-webkit-scrollbar-thumb:hover {
+    background: #45a049; /* Darker color on hover */
+}
+
+
+/* Invite Friends Container */
+.invite-friends-container {
+    max-width: 400px;
+    margin: 20px auto;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background-color: #00112087;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Header Section */
+.invite-header h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: white;
+    text-align: start;
+
+
+}
+
+.invite-image {
+    max-width: 200px;
+    margin: 10px auto;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Description Section */
+.invite-description p {
+    font-size: 1em;
+    margin: 10px 0 20px;
+    color: white;
+}
+
+/* Buttons */
+.invite-button {
+    background-color: #6dce34;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.368);
+    transition: all 0.3s;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border-bottom: 5px solid #2e7703;
+
+}
+
+.invite-button:hover {
+    background: #45a049;
+}
+
+/* Specific Button Variations */
+.send-invite-btn {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.copy-btn {
+    background-color: #0e4c80;
+    color: White;
+    padding: 12px 13px;
+    font-size: 0.9em;
+    border-radius: 10px;
+    cursor: pointer;
+    outline:none;
+    border:none;
+}
+
+.copy-btn:hover {
+    background: #0f3c61;
+    transition: background 0.3s ease;
+
+}
+
+.share-link-btn {
+    background-color: #6dce34;
+    width: 100%;
+    color: #fff;
+    margin: 10px 0;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+    border-bottom: 5px solid #2e7703;
+}
+
+.share-link-btn:hover {
+    border-bottom: 5px solid #2e7703;
+}
+
+
+/* Input Box */
+.copy-link-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.368);
+}
+
+.invite-link {
+    width: calc(100% - 60px);
+    padding: 11px;
+    font-size: 1em;
+    border-radius: 5px 0 0 5px;
+    background: #333;
+    color: white;
+    outline: none;
+    border:none
+}
+
+.copy-link-container .copy-btn {
+    border-radius: 0 5px 5px 0;
+}
+
+/* Cancel Link */
+.cancel-link {
+    display: block;
+    margin-top: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-size:1.2rem;
+}
+
+.cancel-link:hover {
+    text-decoration: underline;
+}
+
+/* Hidden Section */
+.hidden {
+    display: none;
+}
+.invite-section, .invite-options {
+    text-align: center;
+    margin: 20px 0;
 }

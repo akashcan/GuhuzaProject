@@ -3,115 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile| Guhuza</title>
+    <title>User Profile | Guhuza</title>
     <link rel="stylesheet" href="assets/css/quiz.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <style>
-/* General Body Styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background-color: #1c1e24;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-}
-
-.profile-container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    background-color: #00112087;
-
-    border-radius: 10px;
-}
-
-.profile-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    color: #ffffff;
-}
-
-.profile-header h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.back-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-.avatar-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.avatar-circle {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #39424e;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.5rem;
-    color: #6dce34;
-    margin-bottom: 10px;
-}
-
-.change-avatar {
-    color: #6dce34;
-    font-size: 0.9rem;
-    text-decoration: none;
-}
-
-.info-section {
-    margin-bottom: 15px;
-}
-
-.info-section label {
-    font-size: 0.9rem;
-    color: #b0b3b8;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.info-section input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #39424e;
-    border-radius: 5px;
-    background-color: #1c1e24;
-    color: #ffffff;
-    font-size: 1rem;
-}
-
-.info-section input:disabled {
-    color: #b0b3b8;
-}
-
-/* Responsive Design */
-@media (max-width: 400px) {
-    .profile-container {
-        width: 90%;
-    }
-}
 
 </style>
 </head>
@@ -124,11 +20,10 @@ body {
             </div>
             <nav class="sidebar-menu">
                 <ul>
-                    <li><a href="mainQuizPage.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="mainLevelPage.html"><i class="fas fa-home"></i> Home</a></li>
                     <li><a href="profiles.html"><i class="fas fa-user"></i> Profile</a></li>
-                    <li><a href="#leaderboard"><i class="fas fa-trophy"></i> Leaderboard</a></li>
-                    <li><a href="invite-friend"><i class="fas fa-user-plus"></i> Invite Friends</a></li>
-                    <li><a href="#generate-quiz"><i class="fas fa-cogs"></i> Generate Quiz</a></li>
+                    <li><a href="leaderboard.html"><i class="fas fa-trophy"></i> Leaderboard</a></li>
+                    <li><a href="inviteFriends.html"><i class="fas fa-user-plus"></i> Invite Friends</a></li>
                 </ul>
             </nav>
         </aside>
@@ -210,8 +105,9 @@ body {
         </ul>
     </div>
 </footer>
-    <script src="quizzes.js"></script>
-    <script src="script.js"></script>
-    <script src="loginpage.js"></script>
+   <!-- External Scripts -->
+   <script src="assets/js/loginpage.js"></script>
+   <script src="assets/js/quizzes.js"></script>
+   <script src="assets/js/script.js"></script>
  </body>
 </html>
