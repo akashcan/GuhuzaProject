@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function moveCharacter(level, callback) {
         currentLevel = level;
         sessionStorage.setItem("currentLevel", currentLevel); // Save current level
-
         const startIndex = currentLevel - 1;
         const endIndex = level;
         const steps = pathPositions.slice(startIndex, endIndex + 1);
@@ -108,7 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const character = document.getElementById("character");
     const backgroundMusic = document.getElementById("background-music");
     const musicToggle = document.getElementById("music-toggle");
-
     const totalLevels = 50;
     let currentLevel = parseInt(sessionStorage.getItem("currentLevel") || "1", 10);
     let unlockedLevels = parseInt(sessionStorage.getItem("unlockedLevels") || "1", 10);
@@ -180,16 +178,23 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }, 1000);
     }
-
+    
+    // Start Quiz
     function startQuiz() {
+        quizStartTime = Date.now(); // Record the start time
         displayQuestion();
         startTimer();
     }
-
+    
+    // Display Question
     function displayQuestion() {
         const questionData = quizData.question[currentQuestionIndex];
-        quizTitleElement.textContent = quizData.title || "Quiz"; 
-        quizLevelElement.textContent = `Level ${quizData.level || 1}`;    
+        const totalQuestions = quizData.question.length; // Total number of questions
+        const questionNumberElement = document.getElementById("question-number");
+        const questionsPerLevel = 10; // Defining how many questions are in each level
+        quizTitleElement.textContent = quizData.title || "Quiz";
+        quizLevelElement.textContent = `Level ${currentLevel}`;
+        questionNumberElement.textContent = `Question ${currentQuestionIndex + 1} of ${totalQuestions}`;
         questionElement.innerHTML = `<h4>${questionData.question}</h4>`;
         choicesElement.innerHTML = "";
         questionData.answers.forEach((choice, index) => {
@@ -200,36 +205,55 @@ document.addEventListener("DOMContentLoaded", function () {
             choiceButton.addEventListener("click", selectAnswer);
             choicesElement.appendChild(choiceButton);
         });
-        continueButton.disabled = true;
+    
+        continueButton.disabled = true; // Disable continue button until an answer is selected
     }
-//Timer
+    
+    // Timer
     function startTimer() {
+        clearInterval(timerInterval); // Clear any existing timer interval
+        timeRemaining = 60; // Reset timeRemaining for each question
+        timerElement.innerText = `${timeRemaining--}s`;
         timerInterval = setInterval(() => {
             if (timeRemaining > 0) {
                 timerElement.innerText = `${timeRemaining--}s`;
                 updateProgressBar();
             } else {
                 clearInterval(timerInterval);
+                timerElement.innerText = "Time's Up!";
                 disableChoices();
-                showLeaderboard();
+                continueButton.disabled = false; // Enable continue button when timer ends
             }
         }, 1000);
     }
-//Progressbar
-    function updateProgressBar() {
-        const progress = ((60 - timeRemaining) / 60) * 100;
-        progressBarElement.style.width = `${progress}%`;
-    }
+    
+    // Progress Bar
+function updateProgressBar() {
+    const progressPercentage = ((60 - timeRemaining) / 60) * 100;
+    progressBarElement.style.width = `${progressPercentage}%`;
 
+     // Dynamic color transition using 
+     if (timeRemaining > 19) {
+        progressBarElement.style.backgroundColor = "Green"; //green
+    } else if (timeRemaining > 9) {
+        progressBarElement.style.backgroundColor = "#F7CA18"; //  yello
+    } else {
+        progressBarElement.style.backgroundColor = "#fc0505"; // red
+    }
+}
+    // Select Answer
     function selectAnswer(event) {
         const selectedChoice = event.target;
         const isCorrect = selectedChoice.dataset.correct === "true";
         selectedChoice.classList.add(isCorrect ? "correct" : "incorrect");
-        disableChoices();
-        continueButton.disabled = false;
-        if (isCorrect) score++;
+    
+        disableChoices(); // Disable all choices once an answer is selected
+        continueButton.disabled = false; // Enable continue button after selecting an answer
+    
+        if (isCorrect) score++; // Increment score if the selected answer is correct
     }
-
+    
+    // Disable Choices
     function disableChoices() {
         const choices = choicesElement.querySelectorAll(".choice");
         choices.forEach(choice => {
@@ -237,27 +261,37 @@ document.addEventListener("DOMContentLoaded", function () {
             choice.classList.add(choice.dataset.correct === "true" ? "correct" : "incorrect");
         });
     }
-//QuizContinue button
+    
+    // Continue Button 
     continueButton.addEventListener("click", () => {
+        clearInterval(timerInterval); 
+        progressBarElement.style.width = "0%"; // Reset the progress bar width
+        progressBarElement.style.backgroundColor = "green"; // Reset the progress bar color
         if (currentQuestionIndex < quizData.question.length - 1) {
             currentQuestionIndex++;
+            startTimer(); // Restart timer for the next question
             displayQuestion();
         } else {
-            clearInterval(timerInterval);
-            showLeaderboard();
+            showLeaderboard(); // Show leaderboard when quiz is completed
         }
     });
-//Leadgerboatd
+    
+    // Leaderboard
     function showLeaderboard() {
-        clearInterval(timerInterval);
+        clearInterval(timerInterval); // Ensure no timer is running
+    
+        const quizEndTime = Date.now(); // Record the end time
+        const totalTimeTaken = Math.floor((quizEndTime - quizStartTime) / 1000); // Time in seconds
+    
         playerPhotoElement.src = "images/Frogita - Telegram Animated Stickers.gif";
         totalQuestionsElement.innerText = quizData.question.length;
         scoreElement.innerText = `${score} / ${quizData.question.length}`;
-        timeTakenElement.innerText = `${60 - timeRemaining}s`;
+        timeTakenElement.innerText = `${totalTimeTaken}s`; // Display total time taken
         leaderboardOverlay.style.display = "flex";
-        updateUserName('player-name');
-
+        updateUserName("player-name"); // Update player name dynamically
     }
+    
+    
 
     function updateUserName(elementId, defaultName = 'Guest') {
         const fullName = localStorage.getItem('fullName');
@@ -326,7 +360,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         popupContent.classList.add("show");
                     }, 10);
                     document.body.style.overflow = "hidden";
-                }, 1300); // Adjust the delay time as needed (in milliseconds)
+                }, 1000); // Adjust the delay time as needed (in milliseconds)
             });
         }
     });

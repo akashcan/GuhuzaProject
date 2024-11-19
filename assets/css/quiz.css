@@ -119,6 +119,19 @@ main {
     pointer-events: none; /* Allow clicks through to underlying content */
     z-index: -2;
 }
+.grid-overlay-quiz {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+    linear-gradient(to right, rgba(16, 14, 14, 0.03) 1.5px, transparent 2px),
+    linear-gradient(to bottom, rgba(12, 10, 10, 0.03) 1.5px, transparent 2px);
+    background-size: 30px 30px; /* Size of each grid cell */
+    pointer-events: none; /* Allow clicks through to underlying content */
+    z-index: -2;
+}
 /* Footer */
 footer {
     background-color: #111010;
@@ -460,19 +473,19 @@ footer {
 }
 
 .progress-bar {
-    background: #ddd;
-    border-radius: 10px;
-    height: 12px;
-    flex: 1;
+    width: 100%;
+    height: 8px;
+    background-color: #b3b1b1;
+    border-radius: 4px;
     overflow: hidden;
-    margin-right: 10px;
 }
 
 .progress {
+    width: 0%;
     height: 100%;
-    background: linear-gradient(90deg, #4caf50, #6fd360);
-    width: 0%; /* Adjust dynamically */
-    transition: width 0.3s ease;
+    border-radius: 10px;
+    background-color: green;
+    transition: width 0.3s, background-color 0.3s;
 }
 /* Timer Styling */
 .timer {
@@ -490,7 +503,7 @@ footer {
 
 .quiz-level {
     font-size: 1em;
-    color: #4caf50;
+    color: #0e4c80;
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -642,7 +655,7 @@ footer {
 
 .quiz-level {
     font-size: 1em;
-    color: #4caf50;
+    color: #0e4c80;
     font-weight: bold;
     margin-bottom: 20px;
 }
@@ -725,6 +738,7 @@ footer {
     font-size: 1.5rem;
     cursor: pointer;
     font-weight: bold;
+
     transition: background 0.3s ease;
     border-bottom: 5px solid #2e7703;
 }
@@ -749,7 +763,7 @@ footer {
 }
 
 .popup-content {
-    background: linear-gradient(135deg, #80dd66, #81C784); /* Green gradient */
+    background: linear-gradient(135deg, #69e746, #36ab3c); /* Green gradient */
     padding: 20px;
     border-radius: 15px;
     text-align: center;
@@ -1003,6 +1017,7 @@ transform: scale(1.02) translateY(-2px);
 .leaderboard-btn {
     background-color: #6dce34;
     font-size: 1rem;
+    font-weight: bold;
     border: none;
     padding: 15px 30px;
     border-radius: 1rem;
