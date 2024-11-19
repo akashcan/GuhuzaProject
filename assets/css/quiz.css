@@ -652,6 +652,8 @@ footer {
     color: #333;
     font-weight: bold;
     margin-bottom: 5px;
+    font-size: 1.8em;
+
 }
 
 .question p {
@@ -712,7 +714,20 @@ footer {
     justify-content: center;
     margin-top: 20px;
 }
-
+.continue-btn{
+    background-color: #6dce34;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.368);
+    transition: all 0.3s;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 30px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    border-bottom: 5px solid #2e7703;
+}
 
 .continue-btn:hover {
     background: #45a049;
