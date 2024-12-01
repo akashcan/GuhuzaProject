@@ -6,7 +6,7 @@
     <title>Leaderboard | Guhuza</title>
     <link rel="stylesheet" href="assets/css/quiz.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="icon" href="/images/Guzuha-02.svg" type="image/svg+xml" />
+    <link rel="icon" href="/images/title_logo.png" type="image/svg+xml" />
      
 </head>
 <style>
@@ -16,7 +16,7 @@
           <!-- Sidebar -->
           <aside class="sidebar " id="sidebar" >
             <div class="sidebar-header">
-                <h2>Skill Master</h2>
+                <img src="/images/logo_white_large.png">
                 <button class="close-sidebar-btn" id="close-sidebar-btn">&times;</button>
             </div>
             <nav class="sidebar-menu">
@@ -41,7 +41,7 @@
             </div>
         </header>
         <!-- Leaderboard  -->
-        <div class="leaderboard-container">
+        <div  class="leaderboard-container" >
             <div class="profile-header">
                 <h2>Leaderboard</h2>
                 <!-- Winners image below the heading -->
@@ -50,64 +50,7 @@
                 </div>
             </div>
         
-            <div class="player-list">
-                <!-- Player 1 with Gold Medal SVG -->
-                <div class="player-row first">
-                    <div class="rank-icon">
-                        <img src="/images/first-icon.svg" alt="Gold Medal" />
-                    </div>
-                    <div class="icon">E</div>
-                    <div class="name">Phoenix</div>
-                    <div class="xp">345 XP</div>
-                </div>
-        
-                <!-- Player 2 with Silver Medal SVG -->
-                <div class="player-row">
-                    <div class="rank-icon">
-                        <img src="/images/second-icon.svg" alt="Silver Medal" />
-                    </div>
-                    <div class="icon">W</div>
-                    <div class="name">william</div>
-                    <div class="xp">283 XP</div>
-                </div>
-        
-                <!-- Player 3 with Bronze Medal SVG -->
-                <div class="player-row highlighted">
-                    <div class="rank-icon">
-                        <img src="/images/third-icon.svg" alt="Bronze Medal" />
-                    </div>
-                    <div class="icon">X</div>
-                    <div class="name">Xavier</div>
-                    <div class="xp">615 XP</div>
-                </div>
-        
-                <!-- More rows (without icons) -->
-                <div class="player-row">
-                    <div class="rank">4</div>
-                    <div class="icon">A</div>
-                    <div class="name">Alice</div>
-                    <div class="xp">150 XP</div>
-                </div>
-                <div class="player-row">
-                    <div class="rank">5</div>
-                    <div class="icon">B</div>
-                    <div class="name">Bob</div>
-                    <div class="xp">120 XP</div>
-                </div>
-
-                <div class="player-row">
-                    <div class="rank">6</div>
-                    <div class="icon">B</div>
-                    <div class="name">Bob</div>
-                    <div class="xp">120 XP</div>
-                </div>
-
-                <div class="player-row">
-                    <div class="rank">7</div>
-                    <div class="icon">B</div>
-                    <div class="name">Bob</div>
-                    <div class="xp">120 XP</div>
-                </div>
+            <div class="player-list" id="player-list">
                 
             </div>
         </div>
@@ -135,8 +78,9 @@
     </div>
 </footer>
    <!-- External Scripts -->
-   <script src="assets/js/loginpage.js"></script>
+   <script src="assets/js/leaderboard.js"></script>
    <script src="assets/js/quizzes.js"></script>
+   <script src="assets/js/loginpage.js"></script>
    <script src="assets/js/script.js"></script>
  </body>
 </html>

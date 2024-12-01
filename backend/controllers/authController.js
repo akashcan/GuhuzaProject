@@ -5,56 +5,75 @@ const { generateOTP } = require('../utils/utils');
 
 // Registration Logic
 exports.register = (req, res) => {
-    const { 'full-name': fullName, email, password, skills, 'location': address } = req.body;
-    const profilePicture = req.files['profile-picture'][0]?.filename;
-    const resume = req.files['resume'][0]?.filename;
+    try {
+        const { 'full-name': fullName, email, password, skills, 'location': address } = req.body;
+        const profilePicture = req.files?.['profile-picture']?.[0]?.filename;
+        const resume = req.files?.['resume']?.[0]?.filename;
 
-    if (!fullName || !email || !password || !skills || !address || !profilePicture || !resume) {
-        return res.status(400).json({ message: 'Please fill all fields and upload both files.' });
-    }
-
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(password, salt);
-
-    const query = `INSERT INTO jobseekers (fullname, email, password, skills, profilepicture, resume, address) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-
-    db.query(query, [fullName, email, hashedPassword, skills, profilePicture, resume, address], (err, result) => {
-        if (err) {
-            return res.status(500).json({ message: 'Error registering user', error: err });
+        // Validate required fields
+        if (!fullName || !email || !password || !skills || !address || !profilePicture || !resume) {
+            return res.status(400).json({ message: 'Please fill all fields and upload both files.' });
         }
 
-        // Send Registration Email
-        const mailOptions = {
-            from: '"SkillMaster" <skillmaster1017@gmail.com>',
-            to: email,
-            subject: 'Welcome to Skill Master – Registration Successful',
-            html: `
-            <div style="font-family: Arial, sans-serif; line-height: 1.2; color: #333; max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
-                <h2 style="color: #0f4c81;">Welcome to Skill Master, ${fullName}!👋</h2>
-                <p>Thank you for joining <strong>Skill Master</strong>. We’re excited to have you with us as you take the next step in your professional journey.</p>
-                <p>Feel free to explore and start enhancing your skills right away. We're here to support you at every step.</p>
+        // Hash the password
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
 
-                <p>Need help? Reach out anytime at <a href="mailto:support@skillmaster.com" style="color: #0f4c81; text-decoration: none;">Support Team</a>.</p>
+        // Prepare the query
+        const query = `INSERT INTO jobseekers (fullname, email, password, skills, profilepicture, resume, address) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
-                <p>Best regards,</p>
-                <p><strong style="color:#0f4c81">Skill Master Team</strong></p>
-
-                <footer style="background-color:#333;border-radius: 5px; margin-top: 20px; padding: 5px; border-top: 1px solid #eaeaea; font-size: 12px; color: #fff; text-align: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
-                    <p>This email was sent from Skill Master, 740 Bathrust St, Toronto, ON.</p>
-                    <p>You are receiving this email because you registered on our platform.</p>
-                </footer>
-            </div>
-            `
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return res.status(500).json({ message: 'User registered, but failed to send email', error: error });
+        // Execute the query
+        db.query(query, [fullName, email, hashedPassword, skills, profilePicture, resume, address], (err, result) => {
+            if (err) {
+                console.error('Database Error:', err);
+                return res.status(500).json({ message: 'Error registering user', error: err });
             }
-            return res.status(200).json({ message: 'User registered successfully. Registration email sent.' });
+
+            const jobSeekerID = result.insertId; // Get the JobSeekerID from the database
+
+            // Send Registration Email
+            const mailOptions = {
+                from: '"SkillMaster" <skillmaster1017@gmail.com>',
+                to: email,
+                subject: 'Welcome to Skill Master – Registration Successful',
+                html: `
+                <div style="font-family: Arial, sans-serif; line-height: 1.2; color: #333; max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+                    <h2 style="color: #0f4c81;">Welcome to Skill Master, ${fullName}! 👋</h2>
+                    <p>Thank you for joining <strong>Skill Master</strong>. We’re excited to have you with us as you take the next step in your professional journey.</p>
+                    <p>Feel free to explore and start enhancing your skills right away. We're here to support you at every step.</p>
+                    <p>Need help? Reach out anytime at <a href="mailto:support@skillmaster.com" style="color: #0f4c81; text-decoration: none;">Support Team</a>.</p>
+                    <p>Best regards,</p>
+                    <p><strong style="color:#0f4c81">Skill Master Team</strong></p>
+                    <footer style="background-color:#333; border-radius: 5px; margin-top: 20px; padding: 5px; border-top: 1px solid #eaeaea; font-size: 12px; color: #fff; text-align: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+                        <p>This email was sent from Skill Master, 740 Bathrust St, Toronto, ON.</p>
+                        <p>You are receiving this email because you registered on our platform.</p>
+                    </footer>
+                </div>
+                `,
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error('Email Error:', error);
+                    return res.status(200).json({
+                        message: 'User registered successfully, but failed to send email.',
+                        JobSeekerID: jobSeekerID
+                    });
+                }
+
+                // Success response
+                res.status(200).json({
+                    message: 'User registered successfully. Registration email sent.',
+                    JobSeekerID: jobSeekerID
+                });
+            });
         });
-    });
+    } catch (error) {
+        console.error('Unexpected Error:', error);
+        res.status(500).json({ message: 'An unexpected error occurred', error });
+    }
 };
+
 
 // Login Logic with OTP Generation
 exports.login = (req, res) => {
@@ -124,7 +143,7 @@ exports.login = (req, res) => {
                 if (error) {
                     return res.status(500).json({ message: 'Failed to send OTP' });
                 }
-                return res.status(200).json({ message: 'OTP sent to your email' });
+                return res.status(200).json({ message: 'OTP sent to your email', JobSeekerID: user.JobSeekerID, });
             });
         });
     }

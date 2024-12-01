@@ -1,9 +1,9 @@
 // Handle thejob seekers form submission
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const registrationForm = document.getElementById('registration');
 
     if (registrationForm) {
-        registrationForm.addEventListener('submit', function(event) {
+        registrationForm.addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the default form submission
 
             // Call validateForm() before proceeding
@@ -12,37 +12,52 @@ document.addEventListener('DOMContentLoaded', function() {
                 return; // Stop form submission if validation fails
             }
 
-            const formData = new FormData(this); // Collect form data including files
+            const formData = new FormData(this);
+
+            // Log form data
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
+            }
 
             // Use fetch() to send the form data to the backend
             fetch('http://localhost:3005/register', {
                 method: 'POST',
-                body: formData
+                body: formData,
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Registration successful:', data);
-                alert(data.message);  // Display the success message from the server
-
-                // Redirect to the login page after successful registration
-                window.location.href = "signIn.html"; 
-            })
-            .catch(error => {
-                console.error('Error during registration:', error);
-                alert('Error occurred while registering. Check the console for details.');
-            });
+                .then(response => {
+                    console.log('Raw Response:', response); // Log the raw response object
+            
+                    // Check if the status code indicates success
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+            
+                    // Parse JSON safely and catch parsing errors
+                    return response.json().catch(err => {
+                        console.error('Error parsing JSON:', err);
+                        throw new Error('Invalid JSON received from server.');
+                    });
+                })
+                .then(data => {
+                    console.log('Registration successful:', data);
+                    
+                    // Ensure data.message exists before using it
+                    if (data && data.message) {
+                        alert(data.message); // Display success message
+                        window.location.href = 'signIn.html'; // Redirect to sign-in page
+                    } else {
+                        throw new Error('Missing expected response data.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during registration:', error);
+            
+                    // Display a meaningful error message to the user
+                    alert(`An error occurred: ${error.message}. Please try again.`);
+                });
         });
-    } else {
-        console.error('Form with id="registration" not found');
     }
 });
-
-
 document.addEventListener('DOMContentLoaded', function() { 
     const loginForm = document.getElementById('login-form');
     const otpForm = document.getElementById('otp-form');
@@ -68,8 +83,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify(loginData)
             })
+
             .then(response => response.json())
             .then(data => {
+
+                console.log('Login Response:', data); // Debugging log
+               
+                if (data.JobSeekerID) {
+                    localStorage.setItem('JobSeekerID', data.JobSeekerID); // Store in localStorage
+                    console.log('Stored JobSeekerID:', data.JobSeekerID);
+                } else {
+                    console.error('JobSeekerID not returned in response');
+                }
                 if (data.message === 'OTP sent to your email') {
 
                      // Store user's email for future requests
@@ -81,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     alert(data.message);
                 }
+
             })
             .catch(error => {
                 console.error('Error during login:', error);

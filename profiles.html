@@ -6,6 +6,7 @@
     <title>User Profile | Guhuza</title>
     <link rel="stylesheet" href="assets/css/quiz.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="/images/title_logo.png" type="image/svg+xml" />
 </head>
 <style>
 
@@ -15,7 +16,7 @@
             <!-- Sidebar -->
         <aside class="sidebar " id="sidebar" >
             <div class="sidebar-header">
-                <h2>Skill Master</h2>
+                <img src="/images/logo_white_large.png">
                 <button class="close-sidebar-btn" id="close-sidebar-btn">&times;</button>
             </div>
             <nav class="sidebar-menu">
@@ -46,35 +47,28 @@
         <div class="profile-header">
             <h2>Profile</h2>
         </div>
-        
+        <!-- profile Section -->
         <div class="profile-info">
             <div class="avatar-container">
                 <div class="avatar-circle">
-                    <span id="avatar-initial">A</span>
+                    <span id="avatar-initial">A</span> <!-- Updated dynamically -->
                 </div>
-                <span class="change-avatar" id="user-name">Change Avatar</span>
+                <span class="change-avatar">Change Avatar</span>
             </div>
             
             <div class="info-section">
                 <label for="name">Name</label>
-                <input type="text" id="name" value="Akash Pandey" disabled>
+                <input type="text" id="name" disabled>
             </div>
-            
             
             <div class="info-section">
                 <label for="email">Email</label>
-                <input type="text" id="email" value="pandeyakas209@gmail.com" disabled>
+                <input type="text" id="email" disabled>
             </div>
-            
-            <div class="info-section">
-                <label for="password">Password</label>
-                <input type="password" id="password" value="password123" disabled>
-            </div>
-            
             
             <div class="info-section">
                 <label for="join-date">Join Date</label>
-                <input type="text" id="join-date" value="2024-10-17" disabled>
+                <input type="text" id="join-date" disabled>
             </div>
         </div>
     </div>
@@ -109,5 +103,7 @@
    <script src="assets/js/loginpage.js"></script>
    <script src="assets/js/quizzes.js"></script>
    <script src="assets/js/script.js"></script>
+   <script src="assets/js/profile.js"></script>
+
  </body>
 </html>

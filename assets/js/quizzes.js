@@ -91,6 +91,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const clickSound = document.getElementById("click-sound");
     const moveSound = document.getElementById("move-sound");
     const lockedSound = document.getElementById("locked-sound");
+    let currentDifficulty = 'easy'; // Default value
+    let quizStartTime; // Global variable to track quiz start time
+    function startQuiz() {
+        quizStartTime = Date.now(); // Set start time when the quiz starts
+        displayQuestion();
+        startTimer();
+    }
     
     // Quiz logic variables
     let countdown = 3;
@@ -273,9 +280,64 @@ function updateProgressBar() {
             displayQuestion();
         } else {
             showLeaderboard(); // Show leaderboard when quiz is completed
+            submitQuizResults(); // Submit the quiz results
         }
     });
+    //submit quiz results
+async function submitQuizResults() {
+    // Retrieve JobSeekerID from localStorage
+    const JobSeekerID = localStorage.getItem('JobSeekerID'); 
     
+    // Dynamic values based on the user's quiz performance
+    const LevelName = `Level ${currentLevel}`; // Dynamically fetch the current level
+    const Difficulty = currentDifficulty || 'medium'; // Replace with selected difficulty
+    const CorrectAnswers = score; // Use the actual score
+    const TotalQuestions = quizData.question.length; // Total questions in the quiz
+    const quizEndTime = Date.now();
+    const TimeTaken = Math.floor((quizEndTime - quizStartTime) / 1000); // Time in seconds
+
+    // XP Calculation
+    const baseXpPerQuestion = 10; // Base XP for each correct answer
+    const timeBonusPerQuestion = 5; // Bonus if time is favorable
+    const levelCompletionBonus = 50; // Additional bonus for completing the level
+    const accuracyBonus = Math.floor((CorrectAnswers / TotalQuestions) * 50); // Bonus based on accuracy
+    const xpEarned = 
+        CorrectAnswers * baseXpPerQuestion +
+        timeBonusPerQuestion * CorrectAnswers +
+        levelCompletionBonus +
+        accuracyBonus;
+
+    const payload = {
+        JobSeekerID,
+        LevelName,
+        Difficulty,
+        CorrectAnswers,
+        TotalQuestions,
+        TimeTaken,
+        xpEarned, // Include calculated XP in the payload
+    };
+
+    console.log('Submitting payload:', payload);
+
+    try {
+        const response = await fetch('http://localhost:3005/api/submit-quiz', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to submit quiz results: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Quiz results submitted successfully:', data);
+    } catch (error) {
+        console.error('Error submitting quiz results:', error);
+    }
+}
+
+
     // Leaderboard
     function showLeaderboard() {
         clearInterval(timerInterval); // Ensure no timer is running

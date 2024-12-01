@@ -2,13 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const routes = require('./routes/routes');
+const leaderboardRoutes = require('./routes/leaderboardRoutes'); 
+const quizRoutes = require('./routes/quizRoutes'); 
 
 const app = express();
 
-app.use(cors({ origin: 'http://127.0.0.1:5501' }));
+app.use(cors({ origin: 'http://127.0.0.1:5502' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(routes);
+app.use('/api', leaderboardRoutes); // Add leaderboard routes
+app.use('/api', quizRoutes); 
 
 app.get("/api/quiz", async (req, res) => {
     const level = req.query.level || 1; 
