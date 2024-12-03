@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const email = localStorage.getItem('userEmail'); // Get email from localStorage
-    console.log('Email:', email);
 
     if (!email) {
         console.error('User email not found in localStorage.');
@@ -15,6 +14,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log('Profile data retrieved:', profileData); // Debug log
 
         // Update the profile section in the DOM
+        document.getElementById('avatar-initial').textContent = profileData.FullName.charAt(0).toUpperCase() || '';
+        document.getElementById('player').textContent = profileData.FullName || '';
         document.getElementById('name').value = profileData.FullName || '';
         document.getElementById('email').value = profileData.Email || '';
         document.getElementById('join-date').value = profileData.JoinDate.split('T')[0] || ''; // Format date

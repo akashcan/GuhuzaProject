@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const steps = pathPositions.slice(startIndex, endIndex + 1);
         let stepIndex = 0;
         const totalZigzagSteps = 5;
-        const zigzagDistance = 5
+        const zigzagDistance = 1;
 
         function animateStep() {
             if (stepIndex < steps.length) {
@@ -27,9 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (zigzagStep <= totalZigzagSteps) {
                         const intermediateTop = currentTop + deltaY * zigzagStep;
                         const intermediateLeft = currentLeft + deltaX * zigzagStep;
-                        const zigzagOffset = (zigzagStep % 2 === 0 ? zigzagDistance : -zigzagDistance) * (1 - zigzagStep / totalZigzagSteps);
+                        // Apply zigzagOffset only when moving between levels (not from start to level 1)
+                        const zigzagOffset = (stepIndex === 0 && level === 1) 
+                        ? 0 // No zigzag for the start button
+                        : (zigzagStep % 2 === 0 ? zigzagDistance : -zigzagDistance) * (1 - zigzagStep / totalZigzagSteps);
                         character.style.top = `${intermediateTop}px`;
-                        character.style.left = `${intermediateLeft + zigzagOffset}px`;
+                        character.style.left = `${intermediateLeft+zigzagOffset}px`;
 
                         zigzagStep++;
                         setTimeout(animateZigzag, 50);
@@ -91,8 +94,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const clickSound = document.getElementById("click-sound");
     const moveSound = document.getElementById("move-sound");
     const lockedSound = document.getElementById("locked-sound");
+    const buttonWidth = 100; // Start button width
+    const buttonHeight = 100; // Start button height
     let currentDifficulty = 'easy'; // Default value
     let quizStartTime; // Global variable to track quiz start time
+    
     function startQuiz() {
         quizStartTime = Date.now(); // Set start time when the quiz starts
         displayQuestion();
@@ -132,14 +138,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    
     // Start Button, Character Movement, and Level Unlocking
     if (levelsContainer && character) {
         const startButton = document.createElement("button");
         startButton.classList.add("level-circle", "start-btn");
         startButton.textContent = "Start";
-        startButton.style.position = "absolute";
-        startButton.style.top = "50px";
-        startButton.style.left = "130px";
+        character.style.top = `${startButton.offsetTop + buttonHeight / 4.2}px`;
+        character.style.right = `${startButton.offsetLeft + buttonWidth / 45}px`;
         levelsContainer.appendChild(startButton);
 
         setTimeout(() => {
@@ -153,8 +159,8 @@ document.addEventListener("DOMContentLoaded", function () {
             button.disabled = i > unlockedLevels;
             button.setAttribute("data-level", i); // Assign dynamic data-level
             button.style.position = "absolute";
-            button.style.top = `${i * 300}px`;
-            button.style.left = i % 2 === 0 ? "200px" : "60px";
+            button.style.top = `${i * 200}px`;
+            button.style.left = i % 2 === 0 ? "180px" : "100px";
             levelsContainer.appendChild(button);
             setTimeout(() => {
                 pathPositions.push({ top: button.offsetTop, left: button.offsetLeft });
@@ -265,7 +271,6 @@ function updateProgressBar() {
         const choices = choicesElement.querySelectorAll(".choice");
         choices.forEach(choice => {
             choice.disabled = true;
-            choice.classList.add(choice.dataset.correct === "true" ? "correct" : "incorrect");
         });
     }
     
@@ -412,8 +417,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.level-circle').forEach(button => {
         if (!button.classList.contains('start-btn')) {
             button.addEventListener('click', function (event) {
-                document.getElementById("popup-title").innerText = "Unlock your potentials";
-                document.getElementById("popup-description").innerText = "Prove your skills by challenging friends";
+                document.getElementById("popup-title").innerText = "Step into the challenge";
+                document.getElementById("popup-description").innerText = "10 questions, 60 seconds each. Beat the clock and conquer the leaderboard!";
 
                 // Delay popup display by 2 seconds (2000 milliseconds)
                 setTimeout(() => {

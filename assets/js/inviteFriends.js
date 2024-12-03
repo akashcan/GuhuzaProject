@@ -31,7 +31,7 @@ function shareLink() {
     // Craft a compelling subject and body
     const subject = encodeURIComponent("You're Invited to an Exciting Quiz Challenge!");
     const body = encodeURIComponent(
-        `Hi there!\n\nThink you're ready for a fun and engaging challenge? Join me on Skill Master and test your skills in an exciting quiz!\n\nClick the link below to start playing:\n${inviteLink}\n\nProve you're the best, climb the leaderboard, and have some fun along the way. Don't miss out!\n\nSee you there!`
+        `Hi there!\n\nThink you're ready for a fun and engaging challenge? Join me on Guhuza and test your skills in an exciting quiz!\n\nClick the link below to start playing:\n${inviteLink}\n\nProve you're the best, climb the leaderboard, and have some fun along the way. Don't miss out!\n\nSee you there!`
     );
 
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;

@@ -1,13 +1,13 @@
 const db = require('../config/db');
 
 exports.getLeaderboard = (req, res) => {
-    const limit = 10; // Adjust limit to the number of players you want to show
+    const limit = 20; // Adjust the number of players to show on the leaderboard
 
     const query = `
         SELECT 
             js.FullName, 
             js.ProfilePicture, 
-            SUM(qr.XpEarned) AS TotalXP
+            SUM(qr.TotalXP) AS TotalXP
         FROM quizresults qr
         JOIN jobseekers js ON qr.JobSeekerID = js.JobSeekerID
         GROUP BY qr.JobSeekerID

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard | Guhuza</title>
     <link rel="stylesheet" href="assets/css/quiz.css">
+    <link rel="stylesheet" href="assets/css/normalize.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" href="/images/title_logo.png" type="image/svg+xml" />
      
@@ -49,16 +51,17 @@
                     <img src="/images/winners.png" alt="Winners" />
                 </div>
             </div>
-        
-            <div class="player-list" id="player-list">
-                
-            </div>
+        <!-- Player Lists -->
+            <div class="player-list" id="player-list"></div>
         </div>
     <!-- Sound Effects -->
         <audio id="click-sound" src="Audio/90s-game-ui-7-185100.mp3"></audio>
         <audio id="move-sound" src="Audio/mixkit-player-jumping-in-a-video-game-2043.wav"></audio>
         <audio id="locked-sound" src="Audio/mixkit-fairytale-game-over-1945.wav"></audio>
     </div>
+     <!-- Current User  -->
+     <div id="current-user-container" class="current-user-container"></div>
+
 <div class="grid-overlay"></div>    
 <footer>
     <div class="footer-bottom">            
