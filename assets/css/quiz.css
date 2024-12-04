@@ -406,6 +406,7 @@ footer {
     z-index: 1;
 }
 .start-btn {
+    outline: none;
     width: 100px;
     height: 100px;
     border-radius: 50%; /* Match level-circle styling */
@@ -612,7 +613,7 @@ footer {
     position: fixed;
     bottom: 50px;
     right: 50px;
-    background-color: #6dce34;
+    background-color: #0e4c80;
     border: none;
     border-radius: 50%;
     width: 40px;
@@ -628,7 +629,7 @@ footer {
 }
 
 
-#music-toggle:hover {
+#music-toggle:hover { 
     transform: scale(1.1);
 }
 

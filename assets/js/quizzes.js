@@ -92,11 +92,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const quizTitleElement = document.getElementById("quiz-title");
     const quizLevelElement = document.getElementById("quiz-level");
     const clickSound = document.getElementById("click-sound");
-    const moveSound = document.getElementById("move-sound");
-    const lockedSound = document.getElementById("locked-sound");
+    const correctSound = document.getElementById("correct-sound");
+    const incorrectSound = document.getElementById("incorrect-sound");
+    const countdownSound = document.getElementById("countdown-sound");
+    const timesupSound = document.getElementById("timesup-sound");
+    const resultSound = document.getElementById("result-sound");
     const buttonWidth = 100; // Start button width
     const buttonHeight = 100; // Start button height
-    let currentDifficulty = 'easy'; // Default value
     let quizStartTime; // Global variable to track quiz start time
     
     function startQuiz() {
@@ -126,19 +128,47 @@ document.addEventListener("DOMContentLoaded", function () {
     const pathPositions = [];
 
     // Music Toggle
-    if (musicToggle && backgroundMusic) {
-        musicToggle.addEventListener("click", () => {
-            if (backgroundMusic.paused) {
-                backgroundMusic.play();
-                musicToggle.textContent = "🔊";
-            } else {
-                backgroundMusic.pause();
-                musicToggle.textContent = "🔈";
-            }
-        });
+if (musicToggle && backgroundMusic) {
+    // Load saved state from localStorage (default to "on")
+    const isMusicEnabled = localStorage.getItem("musicEnabled") !== "false"; // "false" as a string means off
+    if (isMusicEnabled) {
+        backgroundMusic.play();
+        musicToggle.textContent = "🔊"; // Update icon to show music is on
+    } else {
+        backgroundMusic.pause();
+        musicToggle.textContent = "🔈"; // Update icon to show music is off
     }
 
-    
+    musicToggle.addEventListener("click", () => {
+        if (backgroundMusic.paused) {
+            backgroundMusic.play();
+            musicToggle.textContent = "🔊"; // Music On icon
+            localStorage.setItem("musicEnabled", "true"); // Save state
+        } else {
+            backgroundMusic.pause();
+            musicToggle.textContent = "🔈"; // Music Off icon
+            localStorage.setItem("musicEnabled", "false"); // Save state
+        }
+    });
+
+    // Optional: Adjust music volume
+    backgroundMusic.volume = 0.5; // Set default volume to 50%
+}
+
+// Function to play a sound
+    function playSound(  sound ) {
+     if (sound) {
+        sound.currentTime = 0; // Restart the sound
+        sound.play().catch(error => console.error("Error playing sound:", error));
+    }
+}
+
+// Event: Clicking on buttons
+document.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", () => playSound(clickSound));
+});
+
+
     // Start Button, Character Movement, and Level Unlocking
     if (levelsContainer && character) {
         const startButton = document.createElement("button");
@@ -180,6 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const countdownSequence = ["Ready", "3", "2", "1", "Go!"];
         let countdownIndex = 0;
         countdownElement.innerText = countdownSequence[countdownIndex];
+        playSound(countdownSound); // Start countdown sound
         const countdownInterval = setInterval(() => {
             countdownIndex++;
             if (countdownIndex < countdownSequence.length) {
@@ -192,6 +223,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1000);
     }
     
+    // Event: Timer runs out
+function timeUp() {
+    playSound(timesupSound); // Play "time's up" sound
+    timerElement.innerText = "Time's Up!";
+    disableChoices();
+    continueButton.disabled = false;
+}
+
+// Event: Quiz results
+function showLeaderboard() {
+    playSound(resultSound); // Play result sound
+    leaderboardOverlay.style.display = "flex";
+    updateUserName("player-name");
+}
     // Start Quiz
     function startQuiz() {
         quizStartTime = Date.now(); // Record the start time
@@ -294,8 +339,7 @@ async function submitQuizResults() {
     const JobSeekerID = localStorage.getItem('JobSeekerID'); 
     
     // Dynamic values based on the user's quiz performance
-    const LevelName = `Level ${currentLevel}`; // Dynamically fetch the current level
-    const Difficulty = currentDifficulty || 'medium'; // Replace with selected difficulty
+    const GroupCollection = `Level ${currentLevel}`; // Dynamically fetch the current level
     const CorrectAnswers = score; // Use the actual score
     const TotalQuestions = quizData.question.length; // Total questions in the quiz
     const quizEndTime = Date.now();
@@ -306,7 +350,7 @@ async function submitQuizResults() {
     const timeBonusPerQuestion = 5; // Bonus if time is favorable
     const levelCompletionBonus = 50; // Additional bonus for completing the level
     const accuracyBonus = Math.floor((CorrectAnswers / TotalQuestions) * 50); // Bonus based on accuracy
-    const xpEarned = 
+    const TotalXp= 
         CorrectAnswers * baseXpPerQuestion +
         timeBonusPerQuestion * CorrectAnswers +
         levelCompletionBonus +
@@ -314,12 +358,11 @@ async function submitQuizResults() {
 
     const payload = {
         JobSeekerID,
-        LevelName,
-        Difficulty,
+        GroupCollection,
         CorrectAnswers,
         TotalQuestions,
         TimeTaken,
-        xpEarned, // Include calculated XP in the payload
+        TotalXp, // Include calculated XP in the payload
     };
 
     console.log('Submitting payload:', payload);
@@ -437,7 +480,7 @@ document.addEventListener("DOMContentLoaded", function () {
             closePopup();
         }
     });
-
+//Closing popup
     function closePopup() {
         popupContent.classList.remove("show");
         setTimeout(() => {
