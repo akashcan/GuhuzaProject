@@ -385,7 +385,6 @@ async function submitQuizResults() {
     }
 }
 
-
     // Leaderboard
     function showLeaderboard() {
         clearInterval(timerInterval); // Ensure no timer is running
@@ -401,8 +400,6 @@ async function submitQuizResults() {
         updateUserName("player-name"); // Update player name dynamically
     }
     
-    
-
     function updateUserName(elementId, defaultName = 'Guest') {
         const fullName = localStorage.getItem('fullName');
         console.log("Retrieved fullName:", fullName);
@@ -468,7 +465,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     popupModal.style.display = "flex";
                     setTimeout(() => {
                         popupContent.classList.add("show");
-                    }, 10);
+                    }, 5);
                     document.body.style.overflow = "hidden";
                 }, 1000); // Adjust the delay time as needed (in milliseconds)
             });

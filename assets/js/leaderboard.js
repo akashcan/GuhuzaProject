@@ -39,6 +39,7 @@ async function fetchLeaderboard() {
             console.log('Found currentUser:', currentUser);
             console.log('Current user rank:', currentUser.Rank);
         } else {
+            console.log('Currentuser : ',currentUser);
             console.warn('Current user not found in leaderboard data.');
         }
 
