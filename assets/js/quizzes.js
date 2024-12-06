@@ -172,7 +172,7 @@ document.querySelectorAll("button").forEach(button => {
     // Start Button, Character Movement, and Level Unlocking
     if (levelsContainer && character) {
         const startButton = document.createElement("button");
-        startButton.classList.add("level-circle", "start-btn");
+        startButton.classList.add("start-btn");
         startButton.textContent = "Start";
         character.style.top = `${startButton.offsetTop + buttonHeight / 4.2}px`;
         character.style.right = `${startButton.offsetLeft + buttonWidth / 45}px`;
@@ -455,22 +455,29 @@ document.addEventListener("DOMContentLoaded", function () {
     const startQuizBtn = document.getElementById("start-quiz-btn");
 
     document.querySelectorAll('.level-circle').forEach(button => {
-        if (!button.classList.contains('start-btn')) {
-            button.addEventListener('click', function (event) {
-                document.getElementById("popup-title").innerText = "Step into the challenge";
-                document.getElementById("popup-description").innerText = "10 questions, 60 seconds each. Beat the clock and conquer the leaderboard!";
-
-                // Delay popup display by 2 seconds (2000 milliseconds)
+        button.addEventListener('click', function (event) {
+            // Exclude Start Circle Button
+            if (button.classList.contains('start-btn')) {
+                console.log("Start button clicked: No popup will appear.");
+                return; // Exit the function early to avoid triggering the popup
+            }
+    
+            console.log("Level button clicked:", button.textContent);
+            // Show popup for level buttons
+            document.getElementById("popup-title").innerText = "Step into the challenge";
+            document.getElementById("popup-description").innerText = "10 questions, 60 seconds each. Beat the clock and conquer the leaderboard!";
+    
+            // Delay popup display
+            setTimeout(() => {
+                popupModal.style.display = "flex";
                 setTimeout(() => {
-                    popupModal.style.display = "flex";
-                    setTimeout(() => {
-                        popupContent.classList.add("show");
-                    }, 5);
-                    document.body.style.overflow = "hidden";
-                }, 1000); // Adjust the delay time as needed (in milliseconds)
-            });
-        }
+                    popupContent.classList.add("show");
+                }, 5);
+                document.body.style.overflow = "hidden"; // Disable scrolling
+            }, 1000);
+        });
     });
+    
 
     window.addEventListener('click', function (event) {
         if (event.target === popupModal) {

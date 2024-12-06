@@ -83,7 +83,7 @@ exports.login = (req, res) => {
     db.query("SELECT * FROM jobseekers WHERE email = ?", [email], (err, results) => {
         if (err) {
             console.error("Database error:", err);
-            return res.status(500).json({ message: 'Server error' });
+            return res.status(500).json({ message: 'Server error ' });
         }
 
         if (results.length === 0) {
@@ -104,17 +104,25 @@ exports.login = (req, res) => {
 
         // Compare the provided password with the stored hashed password
         const isPasswordValid = bcrypt.compareSync(password, user.Password);
+        console.log("Password comparison result:", isPasswordValid);
 
         if (!isPasswordValid) {
             console.warn("Incorrect password provided.");
+
             return res.status(400).json({ message: 'Invalid email or password' });
         }
 
 
         // Generate and send OTP
         const otp = generateOTP();
+        console.log("Generated OTP:", otp);
+
         db.query("UPDATE jobseekers SET otp = ? WHERE email = ?", [otp, email], (err) => {
-            if (err) return res.status(500).json({ message: 'Server error' });
+            if (err) {
+                console.error("Error updating OTP:", err);
+                return res.status(500).json({ message: 'Server error OTP', error: err.message });
+            }            
+            console.log("OTP updated successfully for email:", email);
 
             const fullName = user.FullName;
 
@@ -143,6 +151,8 @@ exports.login = (req, res) => {
                 if (error) {
                     return res.status(500).json({ message: 'Failed to send OTP' });
                 }
+                console.log("Email sent successfully:", info.response);
+
                 return res.status(200).json({ message: 'OTP sent to your email', JobSeekerID: user.JobSeekerID, });
             });
         });
@@ -189,7 +199,7 @@ exports.getUserDetails = (req, res) => {
     db.query("SELECT FullName FROM jobseekers WHERE Email = ?", [email], (err, results) => {
         if (err) {
             console.error("Database error:", err);
-            return res.status(500).json({ message: 'Server error' });
+            return res.status(500).json({ message: 'Server error fullName' });
         }
 
         if (results.length === 0) {
