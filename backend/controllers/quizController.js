@@ -36,15 +36,21 @@ exports.submitQuizResults = (req, res) => {
             return res.status(500).json({ message: 'Failed to submit quiz results.' });
         }
 
-        // Update total XP in jobseekers table
-        const updateQuery = `
-            UPDATE jobseekers SET totalXp = totalXp + ? WHERE JobSeekerID = ?
+        // Update or Insert into the leaderboard table
+        const updateLeaderboardQuery = `
+            INSERT INTO leaderboard (JobSeekerID, FullName, TotalXP)
+            VALUES (?, 
+                (SELECT FullName FROM jobseekers WHERE JobSeekerID = ?), 
+                ?
+            )
+            ON DUPLICATE KEY UPDATE 
+                TotalXP = TotalXP + VALUES(TotalXP)
         `;
 
-        db.query(updateQuery, [TotalXP, JobSeekerID], (err, result) => {
+        db.query(updateLeaderboardQuery, [JobSeekerID, JobSeekerID, TotalXP], (err, result) => {
             if (err) {
-                console.error("Database error while updating total XP:", err);
-                return res.status(500).json({ message: 'Failed to update total XP.' });
+                console.error("Database error while updating leaderboard:", err);
+                return res.status(500).json({ message: 'Failed to update leaderboard.' });
             }
 
             res.status(200).json({ message: 'Quiz results submitted successfully.', totalXP: TotalXP });
