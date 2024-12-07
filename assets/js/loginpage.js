@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 method: 'POST',
                 body: formData,
             })
-                .then(response => {
+                .then(async response => {
                     console.log('Raw Response:', response); // Log the raw response object
             
                     // Check if the status code indicates success
@@ -33,10 +33,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
             
                     // Parse JSON safely and catch parsing errors
-                    return response.json().catch(err => {
+                    try {
+                        return await response.json();
+                    } catch (err) {
                         console.error('Error parsing JSON:', err);
                         throw new Error('Invalid JSON received from server.');
-                    });
+                    }
                 })
                 .then(data => {
                     console.log('Registration successful:', data);

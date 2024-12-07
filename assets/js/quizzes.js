@@ -172,7 +172,7 @@ document.querySelectorAll("button").forEach(button => {
     // Start Button, Character Movement, and Level Unlocking
     if (levelsContainer && character) {
         const startButton = document.createElement("button");
-        startButton.classList.add("start-btn");
+        startButton.classList.add("start-btn","level-circle");
         startButton.textContent = "Start";
         character.style.top = `${startButton.offsetTop + buttonHeight / 4.2}px`;
         character.style.right = `${startButton.offsetLeft + buttonWidth / 45}px`;
