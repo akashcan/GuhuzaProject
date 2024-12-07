@@ -30,9 +30,9 @@ CREATE TABLE `leaderboard` (
   `FullName` varchar(255) NOT NULL,
   `TotalXP` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`LeaderboardID`),
-  KEY `FK_Leaderboard_JobSeeker` (`JobSeekerID`),
+  UNIQUE KEY `JobSeekerID` (`JobSeekerID`),
   CONSTRAINT `FK_Leaderboard_JobSeeker` FOREIGN KEY (`JobSeekerID`) REFERENCES `jobseekers` (`JobSeekerID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +41,7 @@ CREATE TABLE `leaderboard` (
 
 LOCK TABLES `leaderboard` WRITE;
 /*!40000 ALTER TABLE `leaderboard` DISABLE KEYS */;
+INSERT INTO `leaderboard` VALUES (7,78,'Akash Pandey',276),(9,41,'Prakash Aryal',388),(10,42,'Sugam Kandel',0),(11,44,'Adarsha Sapkota',0),(12,53,'Indeed',0),(13,54,'Samiksha Pandey',250),(14,67,'Sabin Neupane',80),(15,70,'Sagar Rana',100),(16,71,'Sudip Gurung',190),(17,72,'Aswin Adhikari',90),(18,73,'Dipak Bhandari',80),(19,74,'Sanjit Chapagain',80),(20,75,'Navin Gharti',70),(21,76,'Kiran Bhusal',180),(22,77,'AKASH PANDEY',2505),(23,79,'Sujit Tamang',160);
 /*!40000 ALTER TABLE `leaderboard` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-04  8:09:17
+-- Dump completed on 2024-12-06 21:05:56
