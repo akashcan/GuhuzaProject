@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function moveCharacter(level, callback) {
         currentLevel = level;
         sessionStorage.setItem("currentLevel", currentLevel); // Save current level
+        localStorage.setItem("currentLevel", currentLevel);
+
         const startIndex = currentLevel - 1;
         const endIndex = level;
         const steps = pathPositions.slice(startIndex, endIndex + 1);
@@ -45,6 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
              animateZigzag();
             } else {
                 currentLevel = level;
+
+                 // Finalize the character's position
+            character.style.top = `${steps[steps.length - 1].top}px`;
+            character.style.left = `${steps[steps.length - 1].left}px`;
               // Ensure click sound plays with error handling
         if (clickSound) {
             clickSound.play().catch(error => {
@@ -59,21 +65,23 @@ document.addEventListener("DOMContentLoaded", function () {
         animateStep();
     }
 
-    // Unlock the next level, update sessionStorage, and enable the next level button
-    function unlockNextLevel(level) {
-        if (levelsContainer && level < totalLevels) {
-            const nextLevelButton = levelsContainer.children[level];
-            if (nextLevelButton) {
-                nextLevelButton.classList.remove("locked");
-                nextLevelButton.classList.add("unlocked");
-                nextLevelButton.disabled = false;
-                unlockedLevels = level + 1;
-                sessionStorage.setItem("unlockedLevels", unlockedLevels); // Save unlocked levels
-            }
-        }
-    }
+// Unlock the next level, update sessionStorage, and enable the next level button
+function unlockNextLevel(currentLevel, score, totalQuestions) {
+    const accuracy = score / totalQuestions;
+    if (accuracy >= 0.5) {
+        const nextLevel = currentLevel+1;
+    
+        // Update current level and unlocked levels
+        sessionStorage.setItem("currentLevel", nextLevel);
+        sessionStorage.setItem("unlockedLevels", nextLevel);
+        localStorage.setItem("currentLevel", nextLevel);
+        localStorage.setItem("unlockedLevels", nextLevel);
 
-    // Quiz and UI variables
+        console.log(`Level ${nextLevel} unlocked successfully!`);
+    }
+}
+
+// Quiz and UI variables
     const countdownOverlay = document.getElementById("countdown-overlay");
     const countdownElement = document.getElementById("countdown");
     const quizContainer = document.getElementById("quiz-container");
@@ -107,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
         startTimer();
     }
     
-    // Quiz logic variables
+// Quiz logic variables
     let countdown = 3;
     let timeRemaining = 60;
     let currentQuestionIndex = 0;
@@ -117,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
         question: [{ question: "Sample Question?", answers: ["Answer 1", "Answer 2"], test_answer: 0 }]
     };
 
-    // Sidebar, Level, and Music variables
+// Sidebar, Level, and Music variables
     const levelsContainer = document.getElementById("levels-container");
     const character = document.getElementById("character");
     const backgroundMusic = document.getElementById("background-music");
@@ -127,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let unlockedLevels = parseInt(sessionStorage.getItem("unlockedLevels") || "1", 10);
     const pathPositions = [];
 
-    // Music Toggle
+// Music Toggle
 if (musicToggle && backgroundMusic) {
     // Load saved state from localStorage (default to "on")
     const isMusicEnabled = localStorage.getItem("musicEnabled") !== "false"; // "false" as a string means off
@@ -151,7 +159,7 @@ if (musicToggle && backgroundMusic) {
         }
     });
 
-    // Optional: Adjust music volume
+// Optional: Adjust music volume
     backgroundMusic.volume = 0.5; // Set default volume to 50%
 }
 
@@ -168,8 +176,7 @@ document.querySelectorAll("button").forEach(button => {
     button.addEventListener("click", () => playSound(clickSound));
 });
 
-
-    // Start Button, Character Movement, and Level Unlocking
+// Start Button, Character Movement, and Level Unlocking
     if (levelsContainer && character) {
         const startButton = document.createElement("button");
         startButton.classList.add("start-btn","level-circle");
@@ -201,9 +208,17 @@ document.querySelectorAll("button").forEach(button => {
                 if (!button.disabled) moveCharacter(i, () => unlockNextLevel(i));
             });
         }
+// for new User: Have to click start button to unlock the Level 1
+        startButton.addEventListener("click", () => {
+            moveCharacter(1, () => unlockNextLevel(1, 100)); 
+        });
 
-        startButton.addEventListener("click", () => moveCharacter(1, () => unlockNextLevel(1)));
-    }
+        // Position the character at the saved current level
+    setTimeout(() => {
+        const savedCurrentLevel = parseInt(localStorage.getItem("currentLevel")) || 1;
+        positionCharacterAtCurrentLevel(savedCurrentLevel); // Ensure character starts at the current level
+    }, 10); // Delay ensures `pathPositions` are populated
+            }
 
     // Quiz Countdown and Display Functions
     function startCountdown() {
@@ -223,7 +238,7 @@ document.querySelectorAll("button").forEach(button => {
         }, 1000);
     }
     
-    // Event: Timer runs out
+// Event: Timer runs out
 function timeUp() {
     playSound(timesupSound); // Play "time's up" sound
     timerElement.innerText = "Time's Up!";
@@ -237,15 +252,16 @@ function showLeaderboard() {
     leaderboardOverlay.style.display = "flex";
     updateUserName("player-name");
 }
-    // Start Quiz
-    function startQuiz() {
+
+// Start Quiz
+function startQuiz() {
         quizStartTime = Date.now(); // Record the start time
         displayQuestion();
         startTimer();
     }
     
-    // Display Question
-    function displayQuestion() {
+// Display Question
+function displayQuestion() {
         const questionData = quizData.question[currentQuestionIndex];
         const totalQuestions = quizData.question.length; // Total number of questions
         const questionNumberElement = document.getElementById("question-number");
@@ -267,8 +283,8 @@ function showLeaderboard() {
         continueButton.disabled = true; // Disable continue button until an answer is selected
     }
     
-    // Timer
-    function startTimer() {
+// Timer
+function startTimer() {
         clearInterval(timerInterval); // Clear any existing timer interval
         timeRemaining = 60; // Reset timeRemaining for each question
         timerElement.innerText = `${timeRemaining--}s`;
@@ -285,7 +301,7 @@ function showLeaderboard() {
         }, 1000);
     }
     
-    // Progress Bar
+// Progress Bar
 function updateProgressBar() {
     const progressPercentage = ((60 - timeRemaining) / 60) * 100;
     progressBarElement.style.width = `${progressPercentage}%`;
@@ -299,7 +315,8 @@ function updateProgressBar() {
         progressBarElement.style.backgroundColor = "#fc0505"; // red
     }
 }
-    // Select Answer
+
+// Select Answer
     function selectAnswer(event) {
         const selectedChoice = event.target;
         const isCorrect = selectedChoice.dataset.correct === "true";
@@ -311,7 +328,7 @@ function updateProgressBar() {
         if (isCorrect) score++; // Increment score if the selected answer is correct
     }
     
-    // Disable Choices
+// Disable Choices
     function disableChoices() {
         const choices = choicesElement.querySelectorAll(".choice");
         choices.forEach(choice => {
@@ -319,7 +336,7 @@ function updateProgressBar() {
         });
     }
     
-    // Continue Button 
+// Continue Button 
     continueButton.addEventListener("click", () => {
         clearInterval(timerInterval); 
         progressBarElement.style.width = "0%"; // Reset the progress bar width
@@ -333,19 +350,20 @@ function updateProgressBar() {
             submitQuizResults(); // Submit the quiz results
         }
     });
-    //submit quiz results
+
+//submit quiz results
 async function submitQuizResults() {
-    // Retrieve JobSeekerID from localStorage
+// Retrieve JobSeekerID from localStorage
     const JobSeekerID = localStorage.getItem('JobSeekerID'); 
     
-    // Dynamic values based on the user's quiz performance
+// Dynamic values based on the user's quiz performance
     const GroupCollection = `Level ${currentLevel}`; // Dynamically fetch the current level
     const CorrectAnswers = score; // Use the actual score
     const TotalQuestions = quizData.question.length; // Total questions in the quiz
     const quizEndTime = Date.now();
     const TimeTaken = Math.floor((quizEndTime - quizStartTime) / 1000); // Time in seconds
 
-    // XP Calculation
+// XP Calculation
     const baseXpPerQuestion = 10; // Base XP for each correct answer
     const timeBonusPerQuestion = 5; // Bonus if time is favorable
     const levelCompletionBonus = 50; // Additional bonus for completing the level
@@ -385,8 +403,8 @@ async function submitQuizResults() {
     }
 }
 
-    // Leaderboard
-    function showLeaderboard() {
+// Leaderboard
+function showLeaderboard() {
         clearInterval(timerInterval); // Ensure no timer is running
     
         const quizEndTime = Date.now(); // Record the end time
@@ -400,7 +418,7 @@ async function submitQuizResults() {
         updateUserName("player-name"); // Update player name dynamically
     }
     
-    function updateUserName(elementId, defaultName = 'Guest') {
+function updateUserName(elementId, defaultName = 'Guest') {
         const fullName = localStorage.getItem('fullName');
         console.log("Retrieved fullName:", fullName);
     
@@ -411,22 +429,98 @@ async function submitQuizResults() {
             document.getElementById(elementId).textContent = defaultName;
         }
     }
+
+// Initialize session and retrieve progress
+function initializeSession() {
+    const savedCurrentLevel = parseInt(localStorage.getItem("currentLevel"), 10) || 1;
+    const savedUnlockedLevels = parseInt(localStorage.getItem("unlockedLevels"), 10) || 1;
+
+    console.log("Initializing session:");
+    console.log(`Saved Current Level: ${savedCurrentLevel}`);
+    console.log(`Saved Unlocked Levels: ${savedUnlockedLevels}`);
+
+    sessionStorage.setItem("currentLevel", savedCurrentLevel);
+    sessionStorage.setItem("unlockedLevels", savedUnlockedLevels);
+
+    return { currentLevel: savedCurrentLevel, unlockedLevels: savedUnlockedLevels };
+}
+
     
-//NextLevel button
-    nextLevelBtn.addEventListener("click", () => {
-        console.log("Next level button clicked. Moving character to Level 2.");
-        moveCharacter(2, () => {
-            console.log("Character moved. Unlocking Level 2.");
-            unlockNextLevel(2);
-            window.location.href = "mainLevelPage.html";
-        });
+// Position character at the current level
+function positionCharacterAtCurrentLevel(currentLevel) {
+    const unlockedLevels = parseInt(sessionStorage.getItem("unlockedLevels"), 10) || 1;
+
+    // Fallback if currentLevel is beyond unlockedLevels
+    if (currentLevel > unlockedLevels) {
+        currentLevel = unlockedLevels; // Move to the highest unlocked level
+        console.warn(`Current level ${currentLevel} is locked. Moving to level ${unlockedLevels}.`);
+    }
+    const targetPosition = pathPositions[currentLevel];
+    if (targetPosition) {
+        character.style.top = `${targetPosition.top}px`;
+        character.style.left = `${targetPosition.left}px`;
+        console.log(`Character positioned at Level ${currentLevel}.`);
+    } else {
+        console.error(`Path position for Level ${currentLevel} not found.`);
+    }
+}
+
+// Setup levels UI
+function setupLevelsUI(unlockedLevels) {
+    const levelsContainer = document.getElementById("levels-container");
+    if (!levelsContainer) return;
+
+    levelsContainer.querySelectorAll(".level-circle").forEach((button, index) => {
+        const level = index + 1;
+        const isUnlocked = level <= unlockedLevels;
+
+        button.classList.toggle("locked", !isUnlocked);
+        button.classList.toggle("unlocked", isUnlocked);
+        button.disabled = !isUnlocked;
+
     });
+}
+
+// Initialize DOMContentLoaded logic
+document.addEventListener("DOMContentLoaded", () => {
+    const { currentLevel, unlockedLevels } = initializeSession();
+
+    setTimeout(() => {
+        setupLevelsUI(unlockedLevels);
+        positionCharacterAtCurrentLevel(currentLevel); // Use the correct function here
+    }, 100);
+});
+
+//NextLevel button
+nextLevelBtn.addEventListener("click", () => {
+    const scoreValue = parseInt(scoreElement.innerText.split(" ")[0], 10);
+    const totalQuestions = parseInt(totalQuestionsElement.innerText, 10);
+    const accuracy = scoreValue / totalQuestions;
+
+    if (accuracy >= 0.5) {
+        const nextLevel = currentLevel + 1;
+
+        // Unlock the next level
+        unlockNextLevel(currentLevel, scoreValue, totalQuestions);
+
+        // Move the character to the new level
+        positionCharacterAtCurrentLevel(nextLevel);
+
+        // Update UI and navigate back to the main level page
+        alert(`Level ${nextLevel} unlocked!`);
+        window.location.href = "mainLevelPage.html";
+    } else {
+        alert("You need at least 50% accuracy to unlock the next level. Try again!");
+    }
+});
+
 //Replay button
-    replayBtn.addEventListener("click", () => {
+replayBtn.addEventListener("click", () => {
         window.location.reload();
     });
 
-    startCountdown();
+   startCountdown();
+
 });
 
 //Sidebar

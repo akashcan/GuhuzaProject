@@ -1222,7 +1222,7 @@ transform: scale(1.02) translateY(-2px);
 }
 /* Current user Rank heading  */
 .current-user-container h3 {
-    padding: 5px 0 0 0;
+    padding: 5px 0;
     text-align: center;
     font-size: 1.2em;
     font-weight: bold;

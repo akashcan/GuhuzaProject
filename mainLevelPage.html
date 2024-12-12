@@ -74,12 +74,12 @@
 <footer>
     <div class="footer-bottom">            
         <ul class="social-links">
-            <li><p>© 2024 Skill Master.</p></li>
-            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
-            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <li><p>© 2024 Guhuza.</p></li>
+            <li><a href="https://www.facebook.com/Guhuza"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="https://x.com/guhuza_"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="https://www.linkedin.com/company/guhuza/"><i class="fab fa-linkedin-in"></i></a></li>
+            <li><a href="https://www.youtube.com/watch?v=q8xWi5LYa8E"><i class="fab fa-youtube"></i></a></li>
+            <li><a href="https://www.instagram.com/guhuza_/"><i class="fab fa-instagram"></i></a></li>
             <ul class="store-links">
                 <li><img src="https://cf.quizizz.com/img/landing/google%20play.png" alt="playstore" class="store-img"></li>
                 <li><img src="https://cf.quizizz.com/img/landing/apple%20app%20store.png" alt="appstore" class="store-img"></li>
@@ -91,8 +91,30 @@
 <!-- Scripts -->
  <script>
    document.addEventListener("DOMContentLoaded", () => {
+    
     const levelsContainer = document.getElementById("levels-container");
+    // Initialize start button
+    const startButton = document.querySelector(".start-btn");
+    if (startButton) {
+        startButton.disabled = false;
+    }
 
+    // Initialize levels state from localStorage
+    const unlockedLevels = parseInt(localStorage.getItem("unlockedLevels") || "1", 10);
+    if (levelsContainer) {
+        for (let i = 1; i <= 50; i++) {
+            const levelButton = levelsContainer.querySelector(`[data-level="${i}"]`);
+            if (levelButton) {
+                if (i <= unlockedLevels) {
+                    levelButton.classList.remove("locked");
+                    levelButton.disabled = false;
+                } else {
+                    levelButton.classList.add("locked");
+                    levelButton.disabled = true;
+                }
+            }
+        }
+    }
     // Add event listener to all dynamically created level buttons
     levelsContainer?.addEventListener("click", (event) => {
         const button = event.target;
